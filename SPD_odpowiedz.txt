@@ -1,0 +1,10 @@
+
+Odpowiedzi na pytania:
+Za pomocą problemu przepływowego można opisać np proces produkcji samochodu na lini produkcyjnej lub produkcji masła(produktów spożywczych).
+
+Za "Maszyny" możemy uznać poszczególne stanowiska na których dokonywana jest obróbka przez określony czas - czyli "operacja".
+Może to być np. spawanie karoserii, montowanie drzwi itp. Z kolei za zadanie można uznać ciąg operacji, następujących jedna po drugiej
+w taki sposób aby ukończyć dany element - czyli np. założenie tapicerki na drzwi na maszynie 1, następnie przykręcenie jej na maszynie 2,
+zamontowanie elementów ozdobnych na maszynie 3 i na końcu ich montaż na masyznie 4.
+Po założeniu tapicerki na drzwi, maszyna 1 może zająć się innym elementem, podczas gdy maszyna 2 nadal obrabia pierwszy element.
+Te operacje muszą zostać wykonane jedna po drugiej, bez możliwości równoległego wykonywania zadań.

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SPD1
 {
-    public struct JobObject
+    public class LoadData
     {
-        public int StartTime;
-        public int StopTime;
-        public int JobIndex;
+        public int MachinesQuantity;
+        public int JobQuantity;
+        public List<List<int>> Jobs;
     }
 }

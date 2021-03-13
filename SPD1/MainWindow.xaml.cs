@@ -23,10 +23,10 @@ namespace SPD1
         public MainWindow()
         {
             InitializeComponent();
-            //LoadData dataToLoad = new LoadData();
-            //dataToLoad.ReadFromFile();
-            List<List<JobObject>> list = new List<List<JobObject>>();
-            for (int i = 0; i < 50; i++)
+            PBAlgorithm testOfAlgorithm = new PBAlgorithm();
+            
+            List<List<JobObject>> list = testOfAlgorithm.Run(); ;
+            /*for (int i = 0; i < 2; i++)
             {
                 list.Add(new List<JobObject>());
                 for (int j = 0; j < 5; j++)
@@ -38,8 +38,8 @@ namespace SPD1
                         StopTime = j*3+2
                     });
                 }
-            }
-            Visualization vis = new Visualization(list,40);
+            }*/
+            Visualization vis = new Visualization(list,27);
             vis.Show();
         }
     }

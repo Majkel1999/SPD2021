@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:SPD1"
         mc:Ignorable="d"
         Title="Visualization" Height="720" Width="1280" ResizeMode="NoResize">
-    <Grid x:Name="GridControl" Height="700" Width="1200">
-        
-    </Grid>
+    <ScrollViewer>
+        <Grid x:Name="GridControl" Width="1200">
+
+        </Grid>
+    </ScrollViewer>
 </Window>

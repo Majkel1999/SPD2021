@@ -23,10 +23,10 @@ namespace SPD1
         public MainWindow()
         {
             InitializeComponent();
-            LoadData dataToLoad = new LoadData();
-            dataToLoad.ReadFromFile();
+            //LoadData dataToLoad = new LoadData();
+            //dataToLoad.ReadFromFile();
             List<List<JobObject>> list = new List<List<JobObject>>();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 50; i++)
             {
                 list.Add(new List<JobObject>());
                 for (int j = 0; j < 5; j++)

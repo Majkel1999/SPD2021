@@ -19,7 +19,7 @@ namespace SPD1
     /// </summary>
     public partial class Visualization : Window
     {
-        const int GridHeight = 660;
+        const int GridHeight = 100;
         const int GridWidth = 1200;
         public Visualization(List<List<JobObject>> jobsList, int Cmax)
         {
@@ -54,7 +54,7 @@ namespace SPD1
             {
                 Machines.Add(new RowDefinition());
                 GridControl.RowDefinitions.Add(Machines[i]);
-                Machines[i].Height = new GridLength(GridHeight / jobsList.Count);
+                Machines[i].Height = new GridLength(GridHeight);
                 grid = new Grid();
                 GridControl.Children.Add(grid);
                 Grid.SetRow(grid, i+1);

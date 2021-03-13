@@ -25,6 +25,22 @@ namespace SPD1
             InitializeComponent();
             LoadData dataToLoad = new LoadData();
             dataToLoad.ReadFromFile();
+            List<List<JobObject>> list = new List<List<JobObject>>();
+            for (int i = 0; i < 2; i++)
+            {
+                list.Add(new List<JobObject>());
+                for (int j = 0; j < 5; j++)
+                {
+                    list[i].Add(new JobObject
+                    {
+                        JobIndex = j,
+                        StartTime = j*3,
+                        StopTime = j*3+2
+                    });
+                }
+            }
+            Visualization vis = new Visualization(list,40);
+            vis.Show();
         }
     }
 }

@@ -68,22 +68,22 @@ namespace SPD1
                     listMinMakespan = tempList;
                     minMakespan = tempTime;
                 }
-                if (minMakespan > tempTime)
+                if (minMakespan >= tempTime)
                 {
                     listMinMakespan = tempList;
                     minMakespan = tempTime;
                 }
             }
 
-            ConsoleAllocator.ShowConsoleWindow();
-            foreach (List<JobObject> i in listMinMakespan)
-            {
-                foreach (JobObject j in i)
-                {
-                    Console.Write(j.StartTime + "." + j.StopTime + "   ");
-                }
-                Console.WriteLine();
-            }
+            //ConsoleAllocator.ShowConsoleWindow();
+            //foreach (List<JobObject> i in listMinMakespan)
+            //{
+            //    foreach (JobObject j in i)
+            //    {
+            //        Console.Write(j.StartTime + "." + j.StopTime + "   ");
+            //    }
+            //    Console.WriteLine();
+            //}
             return listMinMakespan;
         }
     }

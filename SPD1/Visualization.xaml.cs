@@ -84,7 +84,7 @@ namespace SPD1
                     }
                     else
                     {
-                        Jobs.Last().Width = new GridLength((job.StopTime - job.StartTime)*unit);
+                        Jobs.Last().Width = new GridLength((job.StartTime-time)*unit);
                         Jobs.Add(new ColumnDefinition());
                         grid.ColumnDefinitions.Add(Jobs.Last());
                         Jobs.Last().Width = new GridLength((job.StopTime - job.StartTime)*unit);

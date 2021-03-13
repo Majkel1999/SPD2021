@@ -13,16 +13,16 @@ namespace SPD1
 {
     public class LoadData
     {
-        public int machinesQuantity;
-        public int jobQuantity;
-        public List<List<int>> jobs;
+        private int _machinesQuantity;
+        public int MachinesQuantity { get => _machinesQuantity; set => _machinesQuantity = value; }
+        private int _jobsQuantity;
+        public int JobsQuantity { get => _jobsQuantity; set => _jobsQuantity = value; }
+        private List<List<int>> _jobs;
+        public List<List<int>> Jobs { get => _jobs; set => _jobs = value; }
+
         public void ReadFromFile()
         {
-            jobs = new List<List<int>>();
-
-            //ConsoleAllocator.ShowConsoleWindow();
-            //Console.WriteLine("Enter name of file: ");
-
+            _jobs = new List<List<int>>();
             try
             {
                 string fileName;
@@ -38,36 +38,28 @@ namespace SPD1
                     int lineCounter = 0;
 
                     line = file.ReadLine().Split();
-                    jobQuantity = int.Parse(line[0]); //read count of machines and jobs to do
-                    machinesQuantity = int.Parse(line[1]);
+                    _jobsQuantity = int.Parse(line[0]); //read count of machines and jobs to do
+                    _machinesQuantity = int.Parse(line[1]);
 
                     while ((line2 = file.ReadLine()) != null)
                     {
                         line = line2.Split();
-                        jobs.Add(new List<int>());
-                        for (int i = 0; i < machinesQuantity; i++)
+                        _jobs.Add(new List<int>());
+                        for (int i = 0; i < _machinesQuantity; i++)
                         {
-                            jobs[lineCounter].Add(int.Parse(line[i]));
+                            _jobs[lineCounter].Add(int.Parse(line[i]));
                         }
                         lineCounter++;
                     }
                     file.Close();
                 }
-                //foreach(List<int> i in jobs)
-                //{
-                //    foreach(int j in i)
-                //    {
-                //        Console.Write(j+" ");
-                //    }
-                //    Console.WriteLine();
-                //}
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                //Console.WriteLine(e.Message);
-                //Console.WriteLine("Error while reading file");
             }
         }
+
+
     }
 }

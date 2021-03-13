@@ -23,6 +23,8 @@ namespace SPD1
         public MainWindow()
         {
             InitializeComponent();
+            LoadData dataToLoad = new LoadData();
+            dataToLoad.ReadFromFile();
         }
     }
 }

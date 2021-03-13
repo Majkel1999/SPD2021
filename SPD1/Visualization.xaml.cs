@@ -19,6 +19,9 @@ namespace SPD1
     /// </summary>
     public partial class Visualization : Window
     {
+        Color textColor = Colors.Black;
+        Color fillColor = Colors.LightBlue;
+
         const int GridHeight = 100;
         const int GridWidth = 1200;
         public Visualization(List<List<JobObject>> jobsList, int Cmax)
@@ -44,7 +47,7 @@ namespace SPD1
                 TextBlock text = new TextBlock();
                 text.Text = (i + 1).ToString();
                 text.FontWeight = FontWeights.Bold;
-                text.Foreground = new SolidColorBrush(Colors.Green);
+                text.Foreground = new SolidColorBrush(textColor);
                 text.TextAlignment = TextAlignment.Center;
                 text.VerticalAlignment = VerticalAlignment.Center;
                 grid.Children.Add(text);
@@ -69,13 +72,14 @@ namespace SPD1
                     {
                         Jobs.Last().Width=new GridLength((job.StopTime- job.StartTime)*unit);
                         Rectangle rec = new Rectangle();
-                        rec.Fill = new SolidColorBrush(Colors.Bisque);
+                        rec.Fill = new SolidColorBrush(fillColor);
+                        rec.Stroke = new SolidColorBrush(textColor);
                         grid.Children.Add(rec);
                         Grid.SetColumn(rec, j);
                         TextBlock text = new TextBlock();
                         text.Text = job.JobIndex.ToString();
                         text.FontWeight = FontWeights.Bold;
-                        text.Foreground = new SolidColorBrush(Colors.Green);
+                        text.Foreground = new SolidColorBrush(textColor);
                         text.TextAlignment = TextAlignment.Center;
                         text.VerticalAlignment = VerticalAlignment.Center;
                         grid.Children.Add(text);
@@ -89,13 +93,14 @@ namespace SPD1
                         grid.ColumnDefinitions.Add(Jobs.Last());
                         Jobs.Last().Width = new GridLength((job.StopTime - job.StartTime)*unit);
                         Rectangle rec = new Rectangle();
-                        rec.Fill = new SolidColorBrush(Colors.Bisque);
+                        rec.Fill = new SolidColorBrush(fillColor);
+                        rec.Stroke = new SolidColorBrush(textColor);
                         grid.Children.Add(rec);
                         Grid.SetColumn(rec, j + 1);
                         TextBlock text = new TextBlock();
                         text.Text = job.JobIndex.ToString();
                         text.FontWeight = FontWeights.Bold;
-                        text.Foreground = new SolidColorBrush(Colors.Green);
+                        text.Foreground = new SolidColorBrush(textColor);
                         text.TextAlignment = TextAlignment.Center;
                         text.VerticalAlignment = VerticalAlignment.Center;
                         grid.Children.Add(text);
@@ -104,7 +109,7 @@ namespace SPD1
                     }
                     time = job.StopTime;
                 }
-                grid.ShowGridLines = true;
+                //grid.ShowGridLines = true;
             }
             GridControl.ShowGridLines = true;
         }

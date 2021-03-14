@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:SPD1"
         mc:Ignorable="d"
         Title="Visualization" Height="720" Width="1280" ResizeMode="NoResize">
-    <ScrollViewer>
-        <Grid x:Name="GridControl" Width="1200">
+    <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="GridControl">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>

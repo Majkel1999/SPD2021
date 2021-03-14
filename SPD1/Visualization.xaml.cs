@@ -30,7 +30,7 @@ namespace SPD1
             int Cmax = GetCMax(jobsList);
             TopText.Text = algorithmName + "    Total Makespan(Cmax): " + Cmax.ToString() + "    Algorithm time: " + elapsedTime.ToString() + "ms";
             List<RowDefinition> Machines = new List<RowDefinition>();
-            double unit = GridWidth / Cmax;
+            double unit = 40;
             RowDefinition timeRow = new RowDefinition();
             timeRow.Height = new GridLength(40);
             GridControl.RowDefinitions.Add(timeRow);
@@ -40,7 +40,7 @@ namespace SPD1
             for (int i = 0; i < Cmax; i++)
             {
                 ColumnDefinition column = new ColumnDefinition();
-                column.Width = new GridLength(GridWidth / Cmax);
+                column.Width = new GridLength(unit);
                 grid.ColumnDefinitions.Add(column);
                 Rectangle rec = new Rectangle();
                 rec.Stroke = new SolidColorBrush(Colors.Black);

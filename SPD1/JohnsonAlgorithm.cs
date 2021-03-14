@@ -219,7 +219,7 @@ namespace SPD1
 					{
 						listOfJobs[i].Add(new JobObject
 						{
-							JobIndex = outputIndex[j],
+							JobIndex = outputIndex[j] + 1,
 							StartTime = delay + jobTimeSum,
 							StopTime = delay + jobTimeSum + data.Jobs[i][outputIndex[j]]
 						});
@@ -231,7 +231,7 @@ namespace SPD1
 					for (int j = 0; j < data.JobsQuantity; j++)
 					{
 						JobObject job = new JobObject();
-						job.JobIndex = outputIndex[j];
+						job.JobIndex = outputIndex[j] + 1;
 						job.StartTime = delay + jobTimeSum;
 						job.StopTime = delay + jobTimeSum + data.Jobs[i][outputIndex[j]];
 

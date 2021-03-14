@@ -24,17 +24,19 @@ namespace SPD1
 
         const int GridHeight = 100;
         const int GridWidth = 1200;
-        public Visualization(List<List<JobObject>> jobsList, int Cmax)
+        public Visualization(List<List<JobObject>> jobsList, double elapsedTime)
         {
-            List<RowDefinition> Machines = new List<RowDefinition>();
             InitializeComponent();
+            int Cmax = GetCMax(jobsList);
+            TopText.Text = "Total Makespan(Cmax): " + Cmax.ToString() + "    Algorithm time: " + elapsedTime.ToString() + "ms";
+            List<RowDefinition> Machines = new List<RowDefinition>();
             double unit = GridWidth / Cmax;
             RowDefinition timeRow = new RowDefinition();
             timeRow.Height = new GridLength(40);
             GridControl.RowDefinitions.Add(timeRow);
             Grid grid = new Grid();
             GridControl.Children.Add(grid);
-            Grid.SetRow(grid, 0);
+            Grid.SetRow(grid, 1);
             for (int i = 0; i < Cmax; i++)
             {
                 ColumnDefinition column = new ColumnDefinition();
@@ -53,24 +55,24 @@ namespace SPD1
                 grid.Children.Add(text);
                 Grid.SetColumn(text, i);
             }
-            for(int i=0; i<jobsList.Count;i++)
+            for (int i = 0; i < jobsList.Count; i++)
             {
                 Machines.Add(new RowDefinition());
                 GridControl.RowDefinitions.Add(Machines[i]);
                 Machines[i].Height = new GridLength(GridHeight);
                 grid = new Grid();
                 GridControl.Children.Add(grid);
-                Grid.SetRow(grid, i+1);
+                Grid.SetRow(grid, i + 2);
                 List<ColumnDefinition> Jobs = new List<ColumnDefinition>();
                 int time = 0;
                 int j = 0;
-                foreach(JobObject job in jobsList[i])
+                foreach (JobObject job in jobsList[i])
                 {
                     Jobs.Add(new ColumnDefinition());
                     grid.ColumnDefinitions.Add(Jobs.Last());
                     if (job.StartTime == time)
                     {
-                        Jobs.Last().Width=new GridLength((job.StopTime- job.StartTime)*unit);
+                        Jobs.Last().Width = new GridLength((job.StopTime - job.StartTime) * unit);
                         Rectangle rec = new Rectangle();
                         rec.Fill = new SolidColorBrush(fillColor);
                         rec.Stroke = new SolidColorBrush(textColor);
@@ -88,10 +90,10 @@ namespace SPD1
                     }
                     else
                     {
-                        Jobs.Last().Width = new GridLength((job.StartTime-time)*unit);
+                        Jobs.Last().Width = new GridLength((job.StartTime - time) * unit);
                         Jobs.Add(new ColumnDefinition());
                         grid.ColumnDefinitions.Add(Jobs.Last());
-                        Jobs.Last().Width = new GridLength((job.StopTime - job.StartTime)*unit);
+                        Jobs.Last().Width = new GridLength((job.StopTime - job.StartTime) * unit);
                         Rectangle rec = new Rectangle();
                         rec.Fill = new SolidColorBrush(fillColor);
                         rec.Stroke = new SolidColorBrush(textColor);
@@ -104,14 +106,19 @@ namespace SPD1
                         text.TextAlignment = TextAlignment.Center;
                         text.VerticalAlignment = VerticalAlignment.Center;
                         grid.Children.Add(text);
-                        Grid.SetColumn(text, j+1);
-                        j +=2;
+                        Grid.SetColumn(text, j + 1);
+                        j += 2;
                     }
                     time = job.StopTime;
                 }
                 //grid.ShowGridLines = true;
             }
             GridControl.ShowGridLines = true;
+        }
+
+        private int GetCMax(List<List<JobObject>> jobsList)
+        {
+            return jobsList.Last().Last().StopTime;
         }
     }
 }

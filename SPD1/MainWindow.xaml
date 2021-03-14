@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" ResizeMode="NoResize">
     <Grid Height="700">
-
+        <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" HorizontalAlignment="Left" Margin="48,24,0,0" VerticalAlignment="Top" Width="211" Height="36" Click="PermutationAlgButton_Click"/>
+        <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a" HorizontalAlignment="Left" Margin="48,127,0,0" VerticalAlignment="Top" Width="211" Height="36" Click="JohnsonAlgButton_Click"/>
     </Grid>
 </Window>

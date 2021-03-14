@@ -8,6 +8,10 @@
         Title="Visualization" Height="720" Width="1280" ResizeMode="NoResize">
     <ScrollViewer>
         <Grid x:Name="GridControl" Width="1200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="TopText" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         </Grid>
     </ScrollViewer>

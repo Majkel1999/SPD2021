@@ -12,9 +12,9 @@ namespace SPD1
 		/// <summary>
 		/// Uruchamia algorytm na danych z pliku i zwraca dane sformatowane do wizualizacji
 		/// </summary>
-		public List<List<JobObject>> Run(out long executionTime)
+		public List<List<JobObject>> Run(out Stopwatch stopwatch)
 		{
-			Stopwatch stopwatch = new Stopwatch();
+			stopwatch = new Stopwatch();
 
 			//Wczytuje dane z pliku
 			LoadData data = new LoadData();
@@ -38,7 +38,6 @@ namespace SPD1
 			returnValue = Algorithm(data);
 
 			stopwatch.Stop();
-			executionTime = stopwatch.ElapsedMilliseconds;
 
 			return returnValue;
 		}

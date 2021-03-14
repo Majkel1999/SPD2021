@@ -29,8 +29,8 @@ namespace SPD1
         private void JohnsonAlgButton_Click(object sender, RoutedEventArgs e)
         {
             JohnsonAlgorithm johnsonAlgorithm = new();
-            List<List<JobObject>> list = johnsonAlgorithm.Run();
-            Visualization vis = new(list,12);
+            List<List<JobObject>> list = johnsonAlgorithm.Run(out Stopwatch stopwatch);
+            Visualization vis = new(list,stopwatch.Elapsed.TotalMilliseconds, "Johnson");
             vis.Show();
         }
 
@@ -38,7 +38,7 @@ namespace SPD1
         {
             PBAlgorithm testOfAlgorithm = new();
             List<List<JobObject>> list = testOfAlgorithm.Run(out Stopwatch stopwatch);
-            Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds);
+            Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds, "Przeglad zupełny");
             vis.Show();
         }
     }

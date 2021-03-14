@@ -119,7 +119,7 @@ namespace SPD1
 		{
 			LoadData oryginalData = data;
 
-			//Sprawdza czy dane są więcej niż dwie maszyny
+			//Sprawdza czy zadane są więcej niż dwie maszyny
 			//Jeśli tak to robi z tego dane dla dwóch maszyn
 			if (data.MachinesQuantity > 2)
 			{

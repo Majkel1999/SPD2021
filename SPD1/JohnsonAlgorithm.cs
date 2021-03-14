@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace SPD1
@@ -11,25 +12,35 @@ namespace SPD1
 		/// <summary>
 		/// Uruchamia algorytm na danych z pliku i zwraca dane sformatowane do wizualizacji
 		/// </summary>
-		public List<List<JobObject>> Run()
+		public List<List<JobObject>> Run(out long executionTime)
 		{
+			Stopwatch stopwatch = new Stopwatch();
+
 			//Wczytuje dane z pliku
 			LoadData data = new LoadData();
 			data.ReadFromFile();
 
 			//Konwertuje dane z pliku
 			List<List<int>> dataToConvert = new List<List<int>>();
-			for(int i = 0; i < data.MachinesQuantity; i++)
+			for (int i = 0; i < data.MachinesQuantity; i++)
 			{
 				dataToConvert.Add(new List<int>());
-				for(int j = 0; j < data.JobsQuantity; j++)
+				for (int j = 0; j < data.JobsQuantity; j++)
 				{
 					dataToConvert[i].Add(data.Jobs[j][i]);
 				}
 			}
 			data.Jobs = dataToConvert;
 
-			return Algorithm(data);
+			List<List<JobObject>> returnValue;
+			stopwatch.Start();
+
+			returnValue = Algorithm(data);
+
+			stopwatch.Stop();
+			executionTime = stopwatch.ElapsedMilliseconds;
+
+			return returnValue;
 		}
 		/// <summary>
 		/// Generuje losowe dane wejściowe dla algorytmu

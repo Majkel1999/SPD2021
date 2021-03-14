@@ -24,11 +24,11 @@ namespace SPD1
 
         const int GridHeight = 100;
         const int GridWidth = 1200;
-        public Visualization(List<List<JobObject>> jobsList, double elapsedTime)
+        public Visualization(List<List<JobObject>> jobsList, double elapsedTime, string algorithmName)
         {
             InitializeComponent();
             int Cmax = GetCMax(jobsList);
-            TopText.Text = "Total Makespan(Cmax): " + Cmax.ToString() + "    Algorithm time: " + elapsedTime.ToString() + "ms";
+            TopText.Text = algorithmName + "    Total Makespan(Cmax): " + Cmax.ToString() + "    Algorithm time: " + elapsedTime.ToString() + "ms";
             List<RowDefinition> Machines = new List<RowDefinition>();
             double unit = GridWidth / Cmax;
             RowDefinition timeRow = new RowDefinition();

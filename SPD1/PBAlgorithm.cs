@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,14 @@ namespace SPD1
 {
     class PBAlgorithm
     {
-        public List<List<JobObject>> Run()
+        public List<List<JobObject>> Run(out Stopwatch stopwatch)
         {
-            List<List<JobObject>> listMinMakespan = new List<List<JobObject>>();
-            int minMakespan = 0;
-            
             LoadData data = new LoadData();
             data.ReadFromFile();
+            stopwatch = new();
+            stopwatch.Start();
+            List<List<JobObject>> listMinMakespan = new List<List<JobObject>>();
+            int minMakespan = 0;
 
             List<int> listToPermute = new List<int>();
             for(int i = 0; i < data.JobsQuantity; i++)
@@ -84,6 +86,7 @@ namespace SPD1
             //    }
             //    Console.WriteLine();
             //}
+            stopwatch.Stop();
             return listMinMakespan;
         }
     }

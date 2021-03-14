@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,23 +24,21 @@ namespace SPD1
         public MainWindow()
         {
             InitializeComponent();
-            PBAlgorithm testOfAlgorithm = new PBAlgorithm();
-            
-            List<List<JobObject>> list = testOfAlgorithm.Run(); ;
-            /*for (int i = 0; i < 2; i++)
-            {
-                list.Add(new List<JobObject>());
-                for (int j = 0; j < 5; j++)
-                {
-                    list[i].Add(new JobObject
-                    {
-                        JobIndex = j,
-                        StartTime = j*3,
-                        StopTime = j*3+2
-                    });
-                }
-            }*/
-            Visualization vis = new Visualization(list,27);
+        }
+
+        private void JohnsonAlgButton_Click(object sender, RoutedEventArgs e)
+        {
+            JohnsonAlgorithm johnsonAlgorithm = new();
+            List<List<JobObject>> list = johnsonAlgorithm.Run();
+            Visualization vis = new(list,12);
+            vis.Show();
+        }
+
+        private void PermutationAlgButton_Click(object sender, RoutedEventArgs e)
+        {
+            PBAlgorithm testOfAlgorithm = new();
+            List<List<JobObject>> list = testOfAlgorithm.Run(out Stopwatch stopwatch);
+            Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds);
             vis.Show();
         }
     }

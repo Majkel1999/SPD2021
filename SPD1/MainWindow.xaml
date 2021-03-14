@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPD1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280" ResizeMode="NoResize">
+        Title="SPD" Height="345" Width="394" ResizeMode="NoResize">
     <Grid Height="700">
-        <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" HorizontalAlignment="Left" Margin="48,24,0,0" VerticalAlignment="Top" Width="211" Height="36" Click="PermutationAlgButton_Click"/>
-        <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a" HorizontalAlignment="Left" Margin="48,127,0,0" VerticalAlignment="Top" Width="211" Height="36" Click="JohnsonAlgButton_Click"/>
+        <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" HorizontalAlignment="Center" Margin="0,84,0,0" VerticalAlignment="Top" Width="210" Height="36" Click="PermutationAlgButton_Click"/>
+        <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a" HorizontalAlignment="Center" Margin="0,187,0,0" VerticalAlignment="Top" Width="210" Height="36" Click="JohnsonAlgButton_Click"/>
     </Grid>
 </Window>

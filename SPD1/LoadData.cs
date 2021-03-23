@@ -60,6 +60,38 @@ namespace SPD1
             }
         }
 
+        public void ReadFromFileToTest(string fileName)
+        {
+            _jobs = new List<List<int>>();
+            try
+            {
+                StreamReader file = new StreamReader(fileName);
+                string[] line;
+                string line2;
+                int lineCounter = 0;
+
+                line = file.ReadLine().Split();
+                _jobsQuantity = int.Parse(line[0]); //read count of machines and jobs to do
+                _machinesQuantity = int.Parse(line[1]);
+
+                while ((line2 = file.ReadLine()) != null)
+                {
+                    line = line2.Split();
+                    _jobs.Add(new List<int>());
+                    for (int i = 0; i < _machinesQuantity; i++)
+                    {
+                        _jobs[lineCounter].Add(int.Parse(line[i]));
+                    }
+                    lineCounter++;
+                }
+                file.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
 
     }
 }

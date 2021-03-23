@@ -41,6 +41,31 @@ namespace SPD1
 
 			return returnValue;
 		}
+
+		public List<List<JobObject>> RunToTest(out Stopwatch stopwatch,LoadData data)
+		{
+			stopwatch = new Stopwatch();
+			//Konwertuje dane z pliku
+			List<List<int>> dataToConvert = new List<List<int>>();
+			for (int i = 0; i < data.MachinesQuantity; i++)
+			{
+				dataToConvert.Add(new List<int>());
+				for (int j = 0; j < data.JobsQuantity; j++)
+				{
+					dataToConvert[i].Add(data.Jobs[j][i]);
+				}
+			}
+			data.Jobs = dataToConvert;
+
+			List<List<JobObject>> returnValue;
+			stopwatch.Start();
+
+			returnValue = Algorithm(data);
+
+			stopwatch.Stop();
+
+			return returnValue;
+		}
 		/// <summary>
 		/// Generuje losowe dane wejściowe dla algorytmu
 		/// </summary>

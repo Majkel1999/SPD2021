@@ -13,6 +13,10 @@ namespace SPD1
         {
             listOfPermutations = new List<List<int>>();
         }
+        /// <summary>
+        /// Generuje wszystkie permutacje zestawu danych podanych w argumencie
+        /// zwraca listę wszytskich permutacji
+        /// </summary>
         public List<List<int>> GetAllPermutations(List<int> listOfElements,int count)
         {
             int[] current = new int[count];
@@ -24,6 +28,14 @@ namespace SPD1
             return listOfPermutations;
         }
 
+        /// <summary>
+        /// Wykonuje właściwą permutację zestawu danych - listy elementów typu int
+        /// Do funkcji podawane są dwie tablice:
+        /// isSelected - tablica bool - na początku podaje się tablice wypełnioną false
+        /// newPermutation - tablica permutacji - na początku pusta, stopniowo w trakcie pracy 
+        /// funkcji uzupełniana o kolejne elementy
+        /// Argument step - oznacza miejsce od którego rusza permutacja - w przypadku wykonywania pełnej permutacji step =0
+        /// </summary>
         public void Permutate(List<int> listOfElements,int count, bool[] isSelected, int[] newPermutation, int step)
         {
             if(step == count)

@@ -6,8 +6,14 @@
         xmlns:local="clr-namespace:SPD1"
         mc:Ignorable="d"
         Title="SPD" Height="345" Width="394" ResizeMode="NoResize">
-    <Grid Height="700">
-        <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" HorizontalAlignment="Center" Margin="0,84,0,0" VerticalAlignment="Top" Width="210" Height="36" Click="PermutationAlgButton_Click"/>
-        <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a" HorizontalAlignment="Center" Margin="0,187,0,0" VerticalAlignment="Top" Width="210" Height="36" Click="JohnsonAlgButton_Click"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="PermutationAlgButton_Click"/>
+        <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="JohnsonAlgButton_Click"/>
+        <Button x:Name="TestButton" Content="Test czasów" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TestButton_Click"/>
     </Grid>
 </Window>

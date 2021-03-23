@@ -41,5 +41,11 @@ namespace SPD1
             Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds, "Przeglad zupełny");
             vis.Show();
         }
+
+        private void TestButton_Click(object sender, RoutedEventArgs e)
+        {
+            Test testOfAlgorithms = new();
+            testOfAlgorithms.RunTest();
+        }
     }
 }

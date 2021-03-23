@@ -18,7 +18,7 @@
 
         <Label Grid.Column="0" Grid.Row="0" Content="Permutation" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"/>
         <Label Grid.Column="1" Grid.Row="0" Content="Makespan" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Right"/>
-        <ListBox x:Name="PermList" HorizontalContentAlignment="Stretch" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5 5 5 5" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox x:Name="PermList" HorizontalContentAlignment="Stretch" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5 5 5 5"  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="0 0 0 1" BorderBrush="Gray">

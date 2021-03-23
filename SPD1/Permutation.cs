@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,6 +54,27 @@ namespace SPD1
                         Permutate(listOfElements, count, isSelected, newPermutation, step + 1);
                         isSelected[i] = false;
                     }
+                }
+            }
+        }
+
+        public static void RotateRight(IList sequence, int count)
+        {
+            object tmp = sequence[count - 1];
+            sequence.RemoveAt(count - 1);
+            sequence.Insert(0, tmp);
+        }
+
+        public static IEnumerable<IList> Permutate(IList sequence, int count)
+        {
+            if (count == 1) yield return sequence;
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    foreach (var perm in Permutate(sequence, count - 1))
+                        yield return perm;
+                    RotateRight(sequence, count);
                 }
             }
         }

@@ -23,7 +23,7 @@ namespace SPD1
         public List<List<JobObject>> Run(out Stopwatch stopwatch)
         {
             //Lista wyników permutation-makespan
-            List<PermutationMakeSpan>  permutationMakeSpanList = new List<PermutationMakeSpan>();
+            List<PermutationMakeSpan> permutationMakeSpanList = new List<PermutationMakeSpan>();
 
             //otwórz okno do wyświetlania czasów
             MakespansWindow window = new MakespansWindow();
@@ -50,23 +50,17 @@ namespace SPD1
             }
 
             //wykonanie permutacji
-            Permutation perms = new Permutation();
-            List<List<int>> testPermutations = perms.GetAllPermutations(listToPermute, listToPermute.Count);
 
-            //przetestowanie wszystkich permutacji
-            for (int i = 0; i < testPermutations.Count; i++)
+            foreach (var perm in Permutation.Permutate(listToPermute, listToPermute.Count))
             {
-
-                //rozwiązanie dla konkretnej permutacji
                 List<List<JobObject>> tempList = new List<List<JobObject>>();
-                int[] tasks = testPermutations[i].ToArray();
 
                 for (int j = 0; j < data.MachinesQuantity; j++)
                 {
                     tempList.Add(new List<JobObject>());
-                    for (int k = 0; k < tasks.Length; k++)
+                    for (int k = 0; k < perm.Count; k++)
                     {
-                        int jobIndex = tasks[k];
+                        int jobIndex = (int)perm[k];
                         int startTime;
                         if (j == 0 && k == 0) //pierwsza maszyna pierwsze zadanie
                         {
@@ -109,24 +103,25 @@ namespace SPD1
                 }
 
                 stopwatch.Stop();
+                int[] arr = new int[perm.Count];
+                perm.CopyTo(arr, 0);
+
                 permutationMakeSpanList.Add(new PermutationMakeSpan
                 {
-                    permutation = String.Join(",", tasks),
+                    permutation = String.Join(",", arr),
                     makespan = tempTime
                 });
-                window.PermList.ItemsSource = null;
-                window.PermList.ItemsSource = permutationMakeSpanList;
+               
                 stopwatch.Start();
             }
+
             stopwatch.Stop();
+            window.PermList.ItemsSource = permutationMakeSpanList;
             return listMinMakespan;
         }
 
-        public List<List<JobObject>> RunToTest(out Stopwatch stopwatch,LoadData data)
+        public List<List<JobObject>> RunToTest(out Stopwatch stopwatch, LoadData data)
         {
-            //Lista wyników permutation-makespan
-            List<PermutationMakeSpan> permutationMakeSpanList = new List<PermutationMakeSpan>();
-
             //zacznij liczyć czas
             stopwatch = new();
             stopwatch.Start();
@@ -143,23 +138,17 @@ namespace SPD1
             }
 
             //wykonanie permutacji
-            Permutation perms = new Permutation();
-            List<List<int>> testPermutations = perms.GetAllPermutations(listToPermute, listToPermute.Count);
 
-            //przetestowanie wszystkich permutacji
-            for (int i = 0; i < testPermutations.Count; i++)
+            foreach (var perm in Permutation.Permutate(listToPermute, listToPermute.Count))
             {
-
-                //rozwiązanie dla konkretnej permutacji
                 List<List<JobObject>> tempList = new List<List<JobObject>>();
-                int[] tasks = testPermutations[i].ToArray();
 
                 for (int j = 0; j < data.MachinesQuantity; j++)
                 {
                     tempList.Add(new List<JobObject>());
-                    for (int k = 0; k < tasks.Length; k++)
+                    for (int k = 0; k < perm.Count; k++)
                     {
-                        int jobIndex = tasks[k];
+                        int jobIndex = (int)perm[k];
                         int startTime;
                         if (j == 0 && k == 0) //pierwsza maszyna pierwsze zadanie
                         {
@@ -200,7 +189,6 @@ namespace SPD1
                     listMinMakespan = tempList;
                     minMakespan = tempTime;
                 }
-
             }
             stopwatch.Stop();
             return listMinMakespan;

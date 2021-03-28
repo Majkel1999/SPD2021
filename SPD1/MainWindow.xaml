@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPD1"
         mc:Ignorable="d"
-        Title="SPD" Height="345" Width="394" ResizeMode="NoResize">
+        Title="SPD" Height="350" Width="600" ResizeMode="NoResize">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -15,5 +19,8 @@
         <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="PermutationAlgButton_Click"/>
         <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="JohnsonAlgButton_Click"/>
         <Button x:Name="TestButton" Content="Test czasów" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TestButton_Click"/>
+        <Button x:Name="DefaultNehButton" Content="Algorytm NEH podstawowy" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="DefaultNehButton_Click"/>
+        <Button x:Name="ModifiedNehButton" Content="Algorytm NEH Zmodyfikowany" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNehButton_Click"/>
+        
     </Grid>
 </Window>

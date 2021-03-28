@@ -1,24 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SPD1
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
 	public partial class MainWindow : Window
 	{
 		public MainWindow()
@@ -42,18 +27,23 @@ namespace SPD1
 			vis.Show();
 		}
 
-		private void NehAlgButton_Click(object sender, RoutedEventArgs e)
+		private void TestButton_Click(object sender, RoutedEventArgs e)
 		{
+			Test testOfAlgorithms = new();
+			testOfAlgorithms.RunTest();
+		}
+
+        private void DefaultNehButton_Click(object sender, RoutedEventArgs e)
+        {
 			NehAlgorithm nehAlgorithm = new NehAlgorithm();
 			List<List<JobObject>> list = nehAlgorithm.Run(out Stopwatch stopwatch);
 			Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds, "Neh");
 			vis.Show();
 		}
 
-		private void TestButton_Click(object sender, RoutedEventArgs e)
-		{
-			Test testOfAlgorithms = new();
-			testOfAlgorithms.RunTest();
-		}
-	}
+        private void ModifiedNehButton_Click(object sender, RoutedEventArgs e)
+        {
+			//Tu wstawić kod do zmodyfikowanego algorytmu NEH
+        }
+    }
 }

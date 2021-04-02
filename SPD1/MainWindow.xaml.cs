@@ -32,7 +32,7 @@ namespace SPD1
 		private void TestButton_Click(object sender, RoutedEventArgs e)
 		{
 			Test testOfAlgorithms = new();
-			testOfAlgorithms.RunTest();
+			testOfAlgorithms.RunTest2();
 		}
 
         private void DefaultNehButton_Click(object sender, RoutedEventArgs e)
@@ -79,5 +79,17 @@ namespace SPD1
 			Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds, "Neh");
 			vis.Show();
 		}
-	}
+
+        private void Test2Button_Click(object sender, RoutedEventArgs e)
+        {
+			Test test = new Test();
+			test.RunTest2();
+		}
+
+        private void ParseButton_Click(object sender, RoutedEventArgs e)
+        {
+			Test test = new Test();
+			test.ParseFile();
+        }
+    }
 }

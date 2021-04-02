@@ -16,14 +16,17 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="PermutationAlgButton_Click"/>
         <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="JohnsonAlgButton_Click"/>
         <Button x:Name="TestButton" Content="Test czasów" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TestButton_Click"/>
-        <Button x:Name="DefaultNehButton" Content="Algorytm NEH podstawowy" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="DefaultNehButton_Click"/>
-        <Button x:Name="ModifiedNehButton" Content="Algorytm NEH Zmodyfikowany" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNehButton_Click"/>
-        <Button x:Name="ModifiedNeh2Button" Content="Algorytm NEH Zmodyfikowany 2" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh2Button_Click"/>
-        <Button x:Name="ModifiedNeh3Button" Content="Algorytm NEH Zmodyfikowany 3" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh3Button_Click"/>
-        <Button x:Name="ModifiedNeh4Button" Content="Algorytm NEH Zmodyfikowany 4" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh4Button_Click"/>
+        <Button x:Name="Test2Button" Content="Test czasów 2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="Test2Button_Click"/>
+        <Button x:Name="ParseButton" Content="Parse file" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ParseButton_Click"/>
+        <Button x:Name="DefaultNehButton" Content="Algorytm NEH podstawowy" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="DefaultNehButton_Click"/>
+        <Button x:Name="ModifiedNehButton" Content="Algorytm NEH Zmodyfikowany" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNehButton_Click"/>
+        <Button x:Name="ModifiedNeh2Button" Content="Algorytm NEH Zmodyfikowany 2" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh2Button_Click"/>
+        <Button x:Name="ModifiedNeh3Button" Content="Algorytm NEH Zmodyfikowany 3" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh3Button_Click"/>
+        <Button x:Name="ModifiedNeh4Button" Content="Algorytm NEH Zmodyfikowany 4" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh4Button_Click"/>
     </Grid>
 </Window>

@@ -32,13 +32,16 @@ namespace SPD1
             }
         }
 
-        public List<List<JobObject>> Run(out Stopwatch stopwatch)
+        public List<List<JobObject>> Run(out Stopwatch stopwatch, LoadData data = null)
         {
             stopwatch = new Stopwatch();
 
             //Wczytywanie danych
-            LoadData data = new LoadData();
-            data.ReadFromFile();
+            if (data == null)
+            {
+                data = new LoadData();
+                data.ReadFromFile();
+            }
 
             stopwatch.Start();
 
@@ -254,10 +257,10 @@ namespace SPD1
                 {
                     sumList.Add(elem);
                 }
-                else 
+                else
                 {
                     CriticalPathElement sumElem = sumList.Find(x => x.JobIndex == elem.JobIndex);
-                    if(sumElem!=null)
+                    if (sumElem != null)
                     {
                         sumElem.JobTime += elem.JobTime;
                     }
@@ -290,7 +293,7 @@ namespace SPD1
             {
                 if (!sumList.Any())
                 {
-                    sumList.Add(new CriticalPathElement(elem.JobIndex,1));
+                    sumList.Add(new CriticalPathElement(elem.JobIndex, 1));
                 }
                 else
                 {
@@ -319,7 +322,7 @@ namespace SPD1
             return mostOperations;
         }
 
-        public int BiggestCmaxChangeJob(List<PriorityWithJobIndex> currentList, int jobToIgnore,LoadData data)
+        public int BiggestCmaxChangeJob(List<PriorityWithJobIndex> currentList, int jobToIgnore, LoadData data)
         {
             int shortestCMax = int.MaxValue;
             int shortestCMaxIndeks = -1;
@@ -341,13 +344,16 @@ namespace SPD1
 
             return shortestCMaxIndeks;
         }
-        public List<List<JobObject>> RunModification1(out Stopwatch stopwatch)
+        public List<List<JobObject>> RunModification1(out Stopwatch stopwatch, LoadData data = null)
         {
             stopwatch = new Stopwatch();
 
             //Wczytywanie danych
-            LoadData data = new LoadData();
-            data.ReadFromFile();
+            if (data == null)
+            {
+                data = new LoadData();
+                data.ReadFromFile();
+            }
 
             stopwatch.Start();
 
@@ -440,13 +446,16 @@ namespace SPD1
             return MakeGanttChart(outputList, data);
         }
 
-        public List<List<JobObject>> RunModification2(out Stopwatch stopwatch)
+        public List<List<JobObject>> RunModification2(out Stopwatch stopwatch, LoadData data = null)
         {
             stopwatch = new Stopwatch();
 
             //Wczytywanie danych
-            LoadData data = new LoadData();
-            data.ReadFromFile();
+            if (data == null)
+            {
+                data = new LoadData();
+                data.ReadFromFile();
+            }
 
             stopwatch.Start();
 
@@ -539,13 +548,16 @@ namespace SPD1
             return MakeGanttChart(outputList, data);
         }
 
-        public List<List<JobObject>> RunModification3(out Stopwatch stopwatch)
+        public List<List<JobObject>> RunModification3(out Stopwatch stopwatch, LoadData data = null)
         {
             stopwatch = new Stopwatch();
 
             //Wczytywanie danych
-            LoadData data = new LoadData();
-            data.ReadFromFile();
+            if (data == null)
+            {
+                data = new LoadData();
+                data.ReadFromFile();
+            }
 
             stopwatch.Start();
 
@@ -638,13 +650,16 @@ namespace SPD1
             return MakeGanttChart(outputList, data);
         }
 
-        public List<List<JobObject>> RunModification4(out Stopwatch stopwatch)
+        public List<List<JobObject>> RunModification4(out Stopwatch stopwatch, LoadData data = null)
         {
             stopwatch = new Stopwatch();
 
             //Wczytywanie danych
-            LoadData data = new LoadData();
-            data.ReadFromFile();
+            if (data == null)
+            {
+                data = new LoadData();
+                data.ReadFromFile();
+            }
 
             stopwatch.Start();
 
@@ -695,7 +710,7 @@ namespace SPD1
                 }
                 //Wstaw tak żeby Cmax był najmniejszy
                 outputList.Insert(shortestCMaxIndeks, new PriorityWithJobIndex(priorityList[i].Priority, priorityList[i].JobIndex));
-                
+
                 if (outputList.Count > 1)
                 {
 

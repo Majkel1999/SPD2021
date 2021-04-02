@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System;
 
 namespace SPD1
 {
@@ -190,6 +191,11 @@ namespace SPD1
                 }
             }
             return true;
+        }
+
+        private void Window_Closed(object sender, System.EventArgs e)
+        {
+            GC.Collect(2, GCCollectionMode.Forced);
         }
     }
 }

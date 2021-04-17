@@ -746,5 +746,76 @@ namespace SPD1
             stopwatch.Stop();
             return MakeGanttChart(outputList, data);
         }
+
+        public List<int> RunWithoutGantt(out Stopwatch stopwatch, LoadData data = null)
+        {
+            stopwatch = new Stopwatch();
+
+            //Wczytywanie danych
+            if (data == null)
+            {
+                data = new LoadData();
+                data.ReadFromFile();
+            }
+
+            stopwatch.Start();
+
+            //Tworzenie listy zadań z priorytetami (jeden priorytet = suma czasów wykonania danego zadania na każdej z maszyn)
+            List<PriorityWithJobIndex> priorityList = new List<PriorityWithJobIndex>();
+
+            for (int i = 0; i < data.JobsQuantity; i++)
+            {
+                //Dodaj do listy nowy priorytet z indeksem zadania
+                priorityList.Add(new PriorityWithJobIndex(0, i));
+                for (int j = 0; j < data.MachinesQuantity; j++)
+                {
+                    //Dla każdego zadania zsumuj czas z każdej maszyny dla tego zadania
+                    priorityList[i].Priority += data.Jobs[i][j];
+                }
+            }
+
+            //Posortuj je nierosnąco (malejąco)
+            //priorityList.Sort((a, b) => b.Priority.CompareTo(a.Priority));
+            priorityList = priorityList.OrderByDescending((x => x.Priority)).ToList();
+
+            //Lista która jest aktualnym ułożeniem zadań (np. 2,1,4,3)
+            List<PriorityWithJobIndex> outputList = new List<PriorityWithJobIndex>();
+
+            for (int i = 0; i < data.JobsQuantity; i++)
+            {
+                //Zmienne które przydadzą się przy znalezieniu najkrótszej permutacji (chyba można to nazwać permutacją)
+                int shortestCMax = int.MaxValue;
+                int shortestCMaxIndeks = -1;
+
+                //Tutaj wykonujemy wstawianie. Dla j-tego zadania na j-tych różnych pozycjach
+                for (int j = 0; j < outputList.Count + 1; j++)
+                {
+                    //Wstawianie
+                    outputList.Insert(j, new PriorityWithJobIndex(priorityList[i].Priority, priorityList[i].JobIndex));
+
+                    int permutationCmax = MakeGanttChart(outputList, data).Last().Last().StopTime;
+
+                    //Jeśli ten Cmax jest mniejszy niż poprzednie to go zapisz
+                    if (shortestCMax > permutationCmax)
+                    {
+                        shortestCMaxIndeks = j;
+                        shortestCMax = permutationCmax;
+                    }
+
+                    //Usuwamy wstawiony element, żeby wypróbować kolejną permutację
+                    outputList.RemoveAt(j);
+                }
+                //Wstaw tak żeby Cmax był najmniejszy
+                outputList.Insert(shortestCMaxIndeks, new PriorityWithJobIndex(priorityList[i].Priority, priorityList[i].JobIndex));
+            }
+
+            stopwatch.Stop();
+            List<int> returnList = new List<int>();
+            foreach(var x in outputList)
+            {
+                returnList.Add(x.JobIndex);
+            }
+            return returnList;
+        }
     }
 }

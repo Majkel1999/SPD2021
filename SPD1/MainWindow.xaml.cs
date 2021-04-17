@@ -91,5 +91,13 @@ namespace SPD1
 			Test test = new Test();
 			test.ParseFile();
         }
+
+        private void TabuSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+			TSAlgorithm tabuSearch = new TSAlgorithm();
+			List<List<JobObject>> list = tabuSearch.Run(out Stopwatch stopwatch, 600, 2000,700);
+			Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds, "tabuSearch");
+			vis.Show();
+		}
     }
 }

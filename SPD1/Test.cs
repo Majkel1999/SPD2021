@@ -16,7 +16,7 @@ namespace SPD1
         public void RunTest1()
         {
             instance = Directory.GetFiles(testFilesPath);
-            StreamWriter file = new("Test1.txt");
+            StreamWriter file = new StreamWriter("Test1.txt");
             file.Write("Instancja");
             file.Write(";");
             file.Write("Johnson");
@@ -29,13 +29,13 @@ namespace SPD1
                 data.ReadFromFileToTest(instance[i]);
                 file.Write(instance[i]);
                 file.Write(";");
-                JohnsonAlgorithm johnsonAlgorithm = new();
+                JohnsonAlgorithm johnsonAlgorithm = new JohnsonAlgorithm();
                 List<List<JobObject>> list = johnsonAlgorithm.RunToTest(out Stopwatch stopwatch, data);
                 file.Write(stopwatch.Elapsed.TotalMilliseconds);
                 file.Write(";");
                 LoadData data2 = new LoadData();
                 data2.ReadFromFileToTest(instance[i]);
-                PBAlgorithm pbAlgorithm = new();
+                PBAlgorithm pbAlgorithm = new PBAlgorithm();
                 List<List<JobObject>> list2 = pbAlgorithm.RunToTest(out Stopwatch stopwatch2, data2);
                 file.Write(stopwatch2.Elapsed.TotalMilliseconds);
                 file.Write(";");
@@ -47,7 +47,7 @@ namespace SPD1
         public void RunTest2()
         {
             instance = Directory.GetFiles(testFilesPath);
-            StreamWriter file = new("Test2.txt");
+            StreamWriter file = new StreamWriter("Test2.txt");
             file.WriteLine("Instancja;Maszyny;Zadania;Johnson;;Neh;;NehMod1;;NehMod2;;NehMod3;;NehMod4");
             file.WriteLine("Instancja;Maszyny;Zadania;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas");
             Stopwatch stopwatch;

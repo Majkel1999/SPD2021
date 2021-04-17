@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPD1"
         mc:Ignorable="d"
-        Title="SPD" Height="350" Width="600" ResizeMode="NoResize">
+        Title="SPD" Height="450" Width="600" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -28,5 +29,6 @@
         <Button x:Name="ModifiedNeh2Button" Content="Algorytm NEH Zmodyfikowany 2" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh2Button_Click"/>
         <Button x:Name="ModifiedNeh3Button" Content="Algorytm NEH Zmodyfikowany 3" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh3Button_Click"/>
         <Button x:Name="ModifiedNeh4Button" Content="Algorytm NEH Zmodyfikowany 4" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh4Button_Click"/>
+        <Button x:Name="TabuSearchButton" Content="Algorytm Tabu Search" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuSearchButton_Click"/>
     </Grid>
 </Window>

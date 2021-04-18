@@ -86,7 +86,13 @@ namespace SPD1
 			test.RunTest2();
 		}
 
-        private void ParseButton_Click(object sender, RoutedEventArgs e)
+		private void Test3Button_Click(object sender, RoutedEventArgs e)
+		{
+			Test test = new Test();
+			test.RunTest3();
+		}
+
+		private void ParseButton_Click(object sender, RoutedEventArgs e)
         {
 			Test test = new Test();
 			test.ParseFile();

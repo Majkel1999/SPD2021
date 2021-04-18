@@ -71,13 +71,14 @@ namespace SPD1
 			return null;
 		}
 
-		public List<List<int>> GenerateNeighbourhoodRandom(List<int> startPermutation, int howManyNGBH)
+		public List<List<int>> GenerateNeighbourhoodRandom(List<int> startPermutation, int from, int to)
 		{
 			Random random = new Random();
+			int neighbourhoodSize = random.Next(from, to);
 			List<List<int>> neighbourhood = new List<List<int>>();
 			List<int> tempPerm = startPermutation;
 			int counter = 0;
-			while (neighbourhood.Count < howManyNGBH)
+			while (neighbourhood.Count < neighbourhoodSize)
 			{
 				neighbourhood.Add(Random(tempPerm, random));
 				++counter;

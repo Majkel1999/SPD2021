@@ -101,7 +101,7 @@ namespace SPD1
         private void TabuSearchButton_Click(object sender, RoutedEventArgs e)
         {
 			TSAlgorithm tabuSearch = new TSAlgorithm();
-			List<List<JobObject>> list = tabuSearch.Run(out Stopwatch stopwatch, 600, 2000,700);
+			List<List<JobObject>> list = tabuSearch.RunMod1(out Stopwatch stopwatch, 600, 150,700);
 			Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds, "tabuSearch");
 			vis.Show();
 		}

@@ -12,7 +12,7 @@ namespace SPD1
     class Test
     {
         string[] instance;
-        string testFilesPath = ".\\TestFiles\\";
+        string testFilesPath = ".\\TestData\\";
         public void RunTest1()
         {
             instance = Directory.GetFiles(testFilesPath);
@@ -142,19 +142,19 @@ namespace SPD1
                 data = new LoadData();
                 data.ReadFromFileToTest(instance[i]);
 
-                list = tabuSearch.RunMod1(out stopwatch, 600, 2000, 250, data);
+                list = tabuSearch.RunMod1(out stopwatch, 600, 500, 250, data); //Warunek stopu do iteracji bez poprawy
                 file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
 
                 data = new LoadData();
                 data.ReadFromFileToTest(instance[i]);
 
-                list = tabuSearch.RunMod2(out stopwatch, 600, 2000, 250, data);
+                list = tabuSearch.RunMod2(out stopwatch, 600, 2000, 250, data); //Johnson
                 file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
 
                 data = new LoadData();
                 data.ReadFromFileToTest(instance[i]);
 
-                list = tabuSearch.RunMod3(out stopwatch, 600, 2000, 250, data);
+                list = tabuSearch.RunMod3(out stopwatch, 600, 2000, 250, data);//Swap zamieniony na insert
                 file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + "\n");
             }
             file.Close();

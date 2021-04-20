@@ -20,6 +20,15 @@ namespace SPD1
         private List<List<int>> _jobs;
         public List<List<int>> Jobs { get => _jobs; set => _jobs = value; }
 
+        public LoadData() { }
+
+        public LoadData(LoadData loadData)
+		{
+            MachinesQuantity = loadData.MachinesQuantity;
+            JobsQuantity = loadData.JobsQuantity;
+            Jobs = loadData.Jobs;
+		}
+
         public void ReadFromFile()
         {
             _jobs = new List<List<int>>();

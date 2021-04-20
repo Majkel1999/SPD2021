@@ -43,13 +43,18 @@ namespace SPD1
 			List<int> nehResult = nehAlgorithm.RunWithoutGantt(out Stopwatch stopwatch2, data);
 			return nehResult;
 		}
-		
+
 		public List<int> GenerateStartPermutationMod2(LoadData data)
 		{
+			var dataCopy = new LoadData(data);
 			JohnsonAlgorithm johnson = new JohnsonAlgorithm();
-			var nehResult = johnson.RunToTest(out Stopwatch stopwatch, data);
+			var nehResult = johnson.RunToTest(out Stopwatch stopwatch, dataCopy);
 			List<int> result = new List<int>();
 			result.AddRange(nehResult.FirstOrDefault().Select(i => i.JobIndex));
+			for (int i = 0; i < result.Count; i++)
+			{
+				result[i] = result[i] - 1;
+			}
 			return result;
 		}
 
@@ -94,7 +99,7 @@ namespace SPD1
 						if (neighbourhood.Count < howManyNGBH)
 						{
 							neighbourhood.RemoveAt(i);
-							neighbourhood.Insert(j,tempPerm);
+							neighbourhood.Insert(j, tempPerm);
 						}
 						else
 						{
@@ -258,7 +263,7 @@ namespace SPD1
 						counter = countOfIterations;
 					}
 					else
-                    {
+					{
 						--counter;
 					}
 					permutation = solution;

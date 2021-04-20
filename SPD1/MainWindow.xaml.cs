@@ -105,5 +105,11 @@ namespace SPD1
 			Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds, "tabuSearch");
 			vis.Show();
 		}
+
+        private void TabuModButton_Click(object sender, RoutedEventArgs e)
+        {
+			Test test = new Test();
+			test.RunTest4();
+        }
     }
 }

@@ -18,6 +18,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="PermutationAlgButton_Click"/>
         <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="JohnsonAlgButton_Click"/>
@@ -31,5 +32,6 @@
         <Button x:Name="ModifiedNeh3Button" Content="Algorytm NEH Zmodyfikowany 3" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh3Button_Click"/>
         <Button x:Name="ModifiedNeh4Button" Content="Algorytm NEH Zmodyfikowany 4" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh4Button_Click"/>
         <Button x:Name="TabuSearchButton" Content="Algorytm Tabu Search" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuSearchButton_Click"/>
+        <Button x:Name="TabuModButton" Content="Test modyfikacji tabu" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuModButton_Click"/>
     </Grid>
 </Window>

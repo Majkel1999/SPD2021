@@ -118,6 +118,48 @@ namespace SPD1
             file.Close();
         }
 
+        public void RunTest4()
+        {
+            instance = Directory.GetFiles(testFilesPath);
+            StreamWriter file = new StreamWriter("Test4.txt");
+            file.WriteLine("Instancja;Maszyny;Zadania;Tabu;;Mod1;;Mod2;;Mod3");
+            file.WriteLine("Instancja;Maszyny;Zadania;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas");
+            Stopwatch stopwatch;
+            List<List<JobObject>> list;
+            for (int i = 0; i < instance.Count(); i++)
+            {
+                Trace.WriteLine("Jestesmy na: " + instance[i]);
+
+                LoadData data = new LoadData();
+                data.ReadFromFileToTest(instance[i]);
+
+                file.Write(instance[i].Split('\\').Last() + ";" + data.MachinesQuantity + ";" + data.JobsQuantity + ";");
+
+                TSAlgorithm tabuSearch = new TSAlgorithm();
+                list = tabuSearch.Run(out stopwatch, 600, 2000, 250, data);
+                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
+
+                data = new LoadData();
+                data.ReadFromFileToTest(instance[i]);
+
+                list = tabuSearch.RunMod1(out stopwatch, 600, 2000, 250, data);
+                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
+
+                data = new LoadData();
+                data.ReadFromFileToTest(instance[i]);
+
+                list = tabuSearch.RunMod2(out stopwatch, 600, 2000, 250, data);
+                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
+
+                data = new LoadData();
+                data.ReadFromFileToTest(instance[i]);
+
+                list = tabuSearch.RunMod3(out stopwatch, 600, 2000, 250, data);
+                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + "\n");
+            }
+            file.Close();
+        }
+
         public void ParseFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

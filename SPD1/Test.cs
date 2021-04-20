@@ -139,22 +139,22 @@ namespace SPD1
                 list = tabuSearch.Run(out stopwatch, 600, 2000, 250, data);
                 file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
 
+                //data = new LoadData();
+                //data.ReadFromFileToTest(instance[i]);
+
+                //list = tabuSearch.RunMod1(out stopwatch, 600, 2000, 250, data);
+                //file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
+
+                //data = new LoadData();
+                //data.ReadFromFileToTest(instance[i]);
+
+                //list = tabuSearch.RunMod2(out stopwatch, 600, 2000, 250, data);
+                //file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
+
                 data = new LoadData();
                 data.ReadFromFileToTest(instance[i]);
 
-                list = tabuSearch.RunMod1(out stopwatch, 600, 2000, 250, data);
-                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
-
-                data = new LoadData();
-                data.ReadFromFileToTest(instance[i]);
-
-                list = tabuSearch.RunMod2(out stopwatch, 600, 2000, 250, data);
-                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
-
-                data = new LoadData();
-                data.ReadFromFileToTest(instance[i]);
-
-                list = tabuSearch.RunMod3(out stopwatch, 600, 2000, 250, data);
+                list = tabuSearch.RunMod3(out stopwatch, 2000, 2000, 250, data);
                 file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + "\n");
             }
             file.Close();

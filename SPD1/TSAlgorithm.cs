@@ -17,6 +17,14 @@ namespace SPD1
 			return temp;
 		}
 
+		public static List<int> Insert(List<int> list, int insertThisElement, int insertIntoThisElement)
+		{
+			List<int> temp = new List<int>(list);
+			temp.Insert(insertIntoThisElement, temp[insertThisElement]);
+			temp.RemoveAt(insertThisElement);
+			return temp;
+		}
+
 		public static List<int> Random(List<int> list, Random random)
 		{
 			List<int> temp = new List<int>(list);
@@ -98,8 +106,7 @@ namespace SPD1
 					{
 						if (neighbourhood.Count < howManyNGBH)
 						{
-							neighbourhood.RemoveAt(i);
-							neighbourhood.Insert(j, tempPerm);
+							neighbourhood.Add(Insert(tempPerm, i, j));
 						}
 						else
 						{

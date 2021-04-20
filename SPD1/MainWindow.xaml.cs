@@ -108,8 +108,9 @@ namespace SPD1
 
         private void TabuModButton_Click(object sender, RoutedEventArgs e)
         {
+
 			Test test = new Test();
 			test.RunTest4();
-        }
+		}
     }
 }

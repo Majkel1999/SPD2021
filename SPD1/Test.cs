@@ -12,7 +12,7 @@ namespace SPD1
     class Test
     {
         string[] instance;
-        string testFilesPath = ".\\TestData\\";
+        string testFilesPath = ".\\TestFiles\\";
         public void RunTest1()
         {
             instance = Directory.GetFiles(testFilesPath);
@@ -120,20 +120,35 @@ namespace SPD1
 
         public void RunTest4()
         {
+            ConsoleAllocator.ShowConsoleWindow();
             instance = Directory.GetFiles(testFilesPath);
             StreamWriter file = new StreamWriter("Test4.txt");
-            file.WriteLine("Instancja;Maszyny;Zadania;Tabu;;Mod1;;Mod2;;Mod3");
-            file.WriteLine("Instancja;Maszyny;Zadania;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas");
+            file.WriteLine("Instancja;Maszyny;Zadania;Johnson;;Neh;;;Tabu;;Mod1;;Mod2;;Mod3;;Mod4");
+            file.WriteLine("Instancja;Maszyny;Zadania;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas");
             Stopwatch stopwatch;
             List<List<JobObject>> list;
             for (int i = 0; i < instance.Count(); i++)
             {
-                Trace.WriteLine("Jestesmy na: " + instance[i]);
+                Console.WriteLine("Jestesmy na: " + instance[i]);
 
                 LoadData data = new LoadData();
                 data.ReadFromFileToTest(instance[i]);
 
-                file.Write(instance[i].Split('\\').Last() + ";" + data.MachinesQuantity + ";" + data.JobsQuantity + ";");
+				file.Write(instance[i].Split('\\').Last() + ";" + data.MachinesQuantity + ";" + data.JobsQuantity + ";");
+
+                JohnsonAlgorithm johnsonAlgorithm = new JohnsonAlgorithm();
+                list = johnsonAlgorithm.RunToTest(out stopwatch, data);
+                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
+
+                data = new LoadData();
+                data.ReadFromFileToTest(instance[i]);
+
+                NehAlgorithm nehAlgorithm = new NehAlgorithm();
+                list = nehAlgorithm.Run(out stopwatch, data);
+                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
+
+                data = new LoadData();
+                data.ReadFromFileToTest(instance[i]);
 
                 TSAlgorithm tabuSearch = new TSAlgorithm();
                 list = tabuSearch.Run(out stopwatch, 600, 2000, 250, data);
@@ -155,33 +170,13 @@ namespace SPD1
                 data.ReadFromFileToTest(instance[i]);
 
                 list = tabuSearch.RunMod3(out stopwatch, 600, 2000, 250, data);//Swap zamieniony na insert
-                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + "\n");
-            }
-            file.Close();
-        }
-
-        public void RunTest5()
-        {
-            instance = Directory.GetFiles(testFilesPath);
-            StreamWriter file = new StreamWriter("Test5.txt");
-            file.WriteLine("Instancja;Maszyny;Zadania;Mod4");
-            file.WriteLine("Instancja;Maszyny;Zadania;CMax;Czas");
-            Stopwatch stopwatch;
-            List<List<JobObject>> list;
-            for (int i = 0; i < instance.Count(); i++)
-            {
-                Trace.WriteLine("Jestesmy na: " + instance[i]);
-
-                LoadData data = new LoadData();
-                data.ReadFromFileToTest(instance[i]);
-
-                file.Write(instance[i].Split('\\').Last() + ";" + data.MachinesQuantity + ";" + data.JobsQuantity + "\n");
-
-                TSAlgorithm tabuSearch = new TSAlgorithm();
-
-                list = tabuSearch.RunMod4(out stopwatch, 600, 2000, 250, data); //Warunek stopu do iteracji bez poprawy
                 file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
 
+                data = new LoadData();
+                data.ReadFromFileToTest(instance[i]);
+
+                list = tabuSearch.RunMod4(out stopwatch, 600, 2000, 250, data); //Warunek stopu do iteracji bez poprawy
+                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + "\n");
             }
             file.Close();
         }

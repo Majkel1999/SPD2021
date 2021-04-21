@@ -419,7 +419,7 @@ namespace SPD1
                 while (counter > 0) //warunek stopu jako ilość iteracji
                 {
                     //wygeneruj sąsiedztwo
-                    List<List<int>> neighbourhood = GenerateNeighbourhoodRandom(permutation, 0, countOfPermutations);
+                    List<List<int>> neighbourhood = GenerateNeighbourhoodRandom(permutation, 100, countOfPermutations);
                     //wyznacz najlepsze rozwiazanie
                     List<int> solution = CalculateBestSolution(neighbourhood, tabuList, data, out int cmax);
                     //popraw listę tabu

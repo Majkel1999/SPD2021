@@ -160,6 +160,32 @@ namespace SPD1
             file.Close();
         }
 
+        public void RunTest5()
+        {
+            instance = Directory.GetFiles(testFilesPath);
+            StreamWriter file = new StreamWriter("Test5.txt");
+            file.WriteLine("Instancja;Maszyny;Zadania;Mod4");
+            file.WriteLine("Instancja;Maszyny;Zadania;CMax;Czas");
+            Stopwatch stopwatch;
+            List<List<JobObject>> list;
+            for (int i = 0; i < instance.Count(); i++)
+            {
+                Trace.WriteLine("Jestesmy na: " + instance[i]);
+
+                LoadData data = new LoadData();
+                data.ReadFromFileToTest(instance[i]);
+
+                file.Write(instance[i].Split('\\').Last() + ";" + data.MachinesQuantity + ";" + data.JobsQuantity + "\n");
+
+                TSAlgorithm tabuSearch = new TSAlgorithm();
+
+                list = tabuSearch.RunMod4(out stopwatch, 600, 2000, 250, data); //Warunek stopu do iteracji bez poprawy
+                file.Write(list.Last().Last().StopTime + ";" + stopwatch.Elapsed.TotalMilliseconds + ";");
+
+            }
+            file.Close();
+        }
+
         public void ParseFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

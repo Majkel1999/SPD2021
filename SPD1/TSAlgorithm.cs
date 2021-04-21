@@ -107,7 +107,7 @@ namespace SPD1
                     {
                         if (neighbourhood.Count < howManyNGBH)
                         {
-                            neighbourhood.Add(Insert(tempPerm,i,j));
+                            neighbourhood.Add(Insert(tempPerm, i, j));
                         }
                         else
                         {
@@ -365,6 +365,61 @@ namespace SPD1
                 {
                     //wygeneruj sąsiedztwo
                     List<List<int>> neighbourhood = GenerateNeighbourhoodMod3(permutation, countOfPermutations);
+                    //wyznacz najlepsze rozwiazanie
+                    List<int> solution = CalculateBestSolution(neighbourhood, tabuList, data, out int cmax);
+                    //popraw listę tabu
+                    if (tabuList.Count == sizeOfTabuList)
+                    {
+                        tabuList.RemoveAt(0);
+                        tabuList.Add(solution);
+                    }
+                    else
+                    {
+                        tabuList.Add(solution);
+                    }
+
+                    if (bestSolutionCmax > cmax)
+                    {
+                        bestSolutionOfAlgorithm = solution;
+                        bestSolutionCmax = cmax;
+                    }
+                    --counter;
+                    permutation = solution;
+                }
+            }
+            stopwatch.Stop();
+
+            return Gantt.MakeGanttChart(bestSolutionOfAlgorithm, data);
+        }
+
+        public List<List<JobObject>> RunMod4(out Stopwatch stopwatch, int sizeOfTabuList, int countOfIterations, int countOfPermutations, LoadData data = null)
+        {
+            stopwatch = new Stopwatch();
+            List<List<int>> tabuList = new List<List<int>>();// maksymalny rozmiar: sizeOfTabuList
+            List<int> bestSolutionOfAlgorithm = new List<int>();
+            int bestSolutionCmax;
+
+            //Wczytywanie danych
+            if (data == null)
+            {
+                data = new LoadData();
+                data.ReadFromFile();
+            }
+
+            stopwatch.Start();
+
+            //wygenerowanie początkowej kolejności zadań
+            List<int> permutation = GenerateStartPermutation(data);
+            bestSolutionCmax = Gantt.GetCmax(permutation, data);
+            bestSolutionOfAlgorithm = permutation;
+            tabuList.Add(bestSolutionOfAlgorithm);
+            if (data.JobsQuantity >= 7)
+            {
+                int counter = countOfIterations;
+                while (counter > 0) //warunek stopu jako ilość iteracji
+                {
+                    //wygeneruj sąsiedztwo
+                    List<List<int>> neighbourhood = GenerateNeighbourhoodRandom(permutation, 0, countOfPermutations);
                     //wyznacz najlepsze rozwiazanie
                     List<int> solution = CalculateBestSolution(neighbourhood, tabuList, data, out int cmax);
                     //popraw listę tabu

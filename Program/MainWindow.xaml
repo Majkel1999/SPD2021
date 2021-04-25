@@ -33,5 +33,6 @@
         <Button x:Name="ModifiedNeh4Button" Content="Algorytm NEH Zmodyfikowany 4" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ModifiedNeh4Button_Click"/>
         <Button x:Name="TabuSearchButton" Content="Algorytm Tabu Search" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuSearchButton_Click"/>
         <Button x:Name="TabuModButton" Content="Test modyfikacji tabu" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuModButton_Click"/>
+        <Button x:Name="RPQSolve" Content="Rozwiaz RPQ" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="RPQSolve_Click"/>
     </Grid>
 </Window>

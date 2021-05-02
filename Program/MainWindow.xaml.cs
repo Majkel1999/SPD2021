@@ -120,5 +120,12 @@ namespace SPD1
             RPQViewer view = new RPQViewer(Schrage.Solve(list));
             view.Show();
         }
+
+        private void SchragePmtnButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<RPQJob> list = RPQLoadData.LoadDataFromFile();
+            int cmax = SchragePMTN.Solve(list);
+            Trace.WriteLine(cmax);
+        }
     }
 }

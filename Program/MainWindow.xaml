@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPD1"
         mc:Ignorable="d"
-        Title="SPD" Height="450" Width="600" ResizeMode="NoResize">
+        Title="SPD" Height="500" Width="600" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -34,5 +35,6 @@
         <Button x:Name="TabuSearchButton" Content="Algorytm Tabu Search" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuSearchButton_Click"/>
         <Button x:Name="TabuModButton" Content="Test modyfikacji tabu" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuModButton_Click"/>
         <Button x:Name="RPQSolve" Content="Rozwiaz RPQ" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="RPQSolve_Click"/>
+        <Button x:Name="SchragePmtnButton" Content="Schrage Pmtn" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="SchragePmtnButton_Click"/>
     </Grid>
 </Window>

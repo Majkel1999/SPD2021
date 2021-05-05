@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace SPD1.Misc
 {
-    public class RPQJob
+    public struct RPQJob
     {
         public int JobIndex { get; set; }
         public int PreparationTime { get; set; }
@@ -31,7 +31,7 @@ namespace SPD1.Misc
                         string[] numbers = Regex.Split(line, "\\s+");
                         jobsList.Add(new RPQJob
                         {
-                            JobIndex = jobsList.Count+1,
+                            JobIndex = jobsList.Count + 1,
                             PreparationTime = int.Parse(numbers[0]),
                             WorkTime = int.Parse(numbers[1]),
                             DeliveryTime = int.Parse(numbers[2])
@@ -41,6 +41,28 @@ namespace SPD1.Misc
                 return jobsList;
             }
             return null;
+        }
+
+        public static List<RPQJob> LoadDataFromFile(string name)
+        {
+            List<RPQJob> jobsList = new List<RPQJob>();
+            using (StreamReader reader = new StreamReader(name))
+            {
+                string line = reader.ReadLine();
+                while ((line = reader.ReadLine()) != null)
+                {
+                    line = line.Trim();
+                    string[] numbers = Regex.Split(line, "\\s+");
+                    jobsList.Add(new RPQJob
+                    {
+                        JobIndex = jobsList.Count + 1,
+                        PreparationTime = int.Parse(numbers[0]),
+                        WorkTime = int.Parse(numbers[1]),
+                        DeliveryTime = int.Parse(numbers[2])
+                    });
+                }
+            }
+            return jobsList;
         }
     }
 

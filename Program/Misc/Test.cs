@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
 using Microsoft.Win32;
+using SPD1.Misc;
+using SPD1.Algorithms;
 
 namespace SPD1
 {
     class Test
     {
         string[] instance;
-        string testFilesPath = ".\\TestFiles\\";
+        string testFilesPath = ".\\TestFiles\\RPQ\\";
         public void RunTest1()
         {
             instance = Directory.GetFiles(testFilesPath);
@@ -219,6 +221,39 @@ namespace SPD1
                     }
                 }
             }
+        }
+
+        public void RunSchrageTest()
+        {
+            instance = Directory.GetFiles(testFilesPath);
+            StreamWriter file = new StreamWriter("SchrageTest.txt");
+            file.WriteLine("Instancja;Zadania;Schrage;;SchrageQueue;;SchragePmtn;;SchragePmtnQueue");
+            file.WriteLine("Instancja;Zadania;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas");
+            Stopwatch stopwatch;
+            for (int i = 0; i < instance.Count(); i++)
+            {
+                Trace.WriteLine("Jestesmy na: " + instance[i]);
+                List<RPQJob> list = RPQLoadData.LoadDataFromFile(instance[i]);
+
+                file.Write(instance[i].Split('\\').Last() + ";" + list.Count +";");
+
+                Schrage.Solve(list, out int Cmax, out stopwatch);
+                file.Write(Cmax+";");
+                file.Write(stopwatch.Elapsed.TotalMilliseconds+";");
+
+                Schrage.SolveUsingQueue(list, out Cmax, out stopwatch);
+                file.Write(Cmax + ";");
+                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+
+                Cmax = SchragePMTN.Solve(list, out stopwatch);
+                file.Write(Cmax + ";");
+                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+
+                Cmax = SchragePMTN.SolveUsingQueue(list, out stopwatch);
+                file.Write(Cmax + ";");
+                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
+            }
+            file.Close();
         }
     }
 }

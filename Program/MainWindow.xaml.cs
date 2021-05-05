@@ -140,5 +140,11 @@ namespace SPD1
             Trace.WriteLine("Cmax queue: " + Cmax);
             Trace.WriteLine("Elapsed ms queue: " + stopwatch1.Elapsed.TotalMilliseconds);
         }
+
+        private void SchragTestButton_Click(object sender, RoutedEventArgs e)
+        {
+            Test test = new Test();
+            test.RunSchrageTest();
+        }
     }
 }

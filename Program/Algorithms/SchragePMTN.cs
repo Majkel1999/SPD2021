@@ -57,8 +57,9 @@ namespace SPD1.Algorithms
             stopwatch = new Stopwatch();
             PriorityQueue jobsPreparationQueue = new PriorityQueue();
             PriorityQueue jobsDeliveryQueue = new PriorityQueue();
+            List<RPQJob> temp = jobs.ToList();
 
-            foreach (RPQJob item in jobs)
+            foreach (RPQJob item in temp)
             {
                 jobsPreparationQueue.Add(item, item.PreparationTime);
             }

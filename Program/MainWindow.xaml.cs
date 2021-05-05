@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using SPD1.Misc;
 using SPD1.Algorithms;
+using System.Linq;
 
 namespace SPD1
 {
@@ -131,11 +132,11 @@ namespace SPD1
         private void SchragePmtnButton_Click(object sender, RoutedEventArgs e)
         {
 			List<RPQJob> list = RPQLoadData.LoadDataFromFile();
-			int Cmax = SchragePMTN.Solve(list, out Stopwatch stopwatch);
+            int Cmax = SchragePMTN.Solve(list, out Stopwatch stopwatch) ;
             Trace.WriteLine("Cmax: " + Cmax);
             Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
 
-            Cmax = SchragePMTN.Solve(list, out Stopwatch stopwatch1);
+            Cmax = SchragePMTN.SolveUsingQueue(list, out Stopwatch stopwatch1);
             Trace.WriteLine("Cmax queue: " + Cmax);
             Trace.WriteLine("Elapsed ms queue: " + stopwatch1.Elapsed.TotalMilliseconds);
         }

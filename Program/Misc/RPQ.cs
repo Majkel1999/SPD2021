@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace SPD1.Misc
 {
-    public class RPQJob
+    public struct RPQJob
     {
         public int JobIndex { get; set; }
         public int PreparationTime { get; set; }

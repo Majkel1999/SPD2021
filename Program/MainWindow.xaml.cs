@@ -121,7 +121,7 @@ namespace SPD1
             Trace.WriteLine("Cmax: " + Cmax);
             Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
 
-            Schrage.Solve(list, out Cmax, out Stopwatch stopwatch1);
+            Schrage.SolveUsingQueue(list, out Cmax, out Stopwatch stopwatch1);
             Trace.WriteLine("Cmax queue: " + Cmax);
             Trace.WriteLine("Elapsed ms queue: " + stopwatch1.Elapsed.TotalMilliseconds);
 
@@ -131,11 +131,12 @@ namespace SPD1
         private void SchragePmtnButton_Click(object sender, RoutedEventArgs e)
         {
 			List<RPQJob> list = RPQLoadData.LoadDataFromFile();
-			int Cmax = SchragePMTN.Solve(list, out Stopwatch stopwatch);
+            List<RPQJob> list1 = RPQLoadData.LoadDataFromFile();
+            int Cmax = SchragePMTN.Solve(list, out Stopwatch stopwatch);
             Trace.WriteLine("Cmax: " + Cmax);
             Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
 
-            Cmax = SchragePMTN.Solve(list, out Stopwatch stopwatch1);
+            Cmax = SchragePMTN.SolveUsingQueue(list1, out Stopwatch stopwatch1);
             Trace.WriteLine("Cmax queue: " + Cmax);
             Trace.WriteLine("Elapsed ms queue: " + stopwatch1.Elapsed.TotalMilliseconds);
         }

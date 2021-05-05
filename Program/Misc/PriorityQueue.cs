@@ -22,6 +22,8 @@ namespace SPD1.Misc
 	{
 		public List<Node> nodes;
 
+		public int Count => nodes.Count;
+
 		public PriorityQueue()
 		{
 			nodes = new List<Node>();
@@ -67,7 +69,13 @@ namespace SPD1.Misc
 				nodes.Add(new Node(job, priority));
 		}
 
+
 		public RPQJob GetHighest()
+		{
+			return nodes.First().Job;
+		}
+
+		public RPQJob GetHighestAndRemove()
 		{
 			RPQJob value = nodes.First().Job;
 			nodes.RemoveAt(0);
@@ -75,6 +83,11 @@ namespace SPD1.Misc
 		}
 
 		public RPQJob GetLowest()
+		{
+			return nodes.Last().Job;
+		}
+
+		public RPQJob GetLowestAndRemove()
 		{
 			RPQJob value = nodes.Last().Job;
 			nodes.RemoveAt(nodes.Count - 1);

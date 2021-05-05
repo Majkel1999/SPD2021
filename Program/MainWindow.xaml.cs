@@ -122,7 +122,7 @@ namespace SPD1
             Trace.WriteLine("Cmax: " + Cmax);
             Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
 
-            Schrage.Solve(list, out Cmax, out Stopwatch stopwatch1);
+            Schrage.SolveUsingQueue(list, out Cmax, out Stopwatch stopwatch1);
             Trace.WriteLine("Cmax queue: " + Cmax);
             Trace.WriteLine("Elapsed ms queue: " + stopwatch1.Elapsed.TotalMilliseconds);
 

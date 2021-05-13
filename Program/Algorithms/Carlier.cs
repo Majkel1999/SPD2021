@@ -3,24 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SPD1.Algorithms
 {
     class Carlier
     {
-        public static List<RPQJob> Solve(List<RPQJob> input,out int upperBoundary, out int Cmax, out Stopwatch stopwatch)
+        public int upperBoundary = int.MaxValue;
+        public int lowerBoundary = 0;
+        public int Cmax = int.MaxValue;
+        public List<RPQJob> bestSolution = new List<RPQJob>();
+        
+        public List<RPQJob> Solve(List<RPQJob> input, out Stopwatch stopwatch)
         {
-            //int upperBoundary = int.MaxValue;
-            int lowerBoundary = 0;
-            Cmax = int.MaxValue;
             stopwatch = new Stopwatch();
             stopwatch.Start();
-            List<RPQJob> bestSolution = new List<RPQJob>();
 
-            List<RPQJob> newSolution = Schrage.Solve(input, out int newCmax, out Stopwatch stopwatch1);
-            if (newCmax < upperBoundary)
+            List<RPQJob> newSolution = Schrage.SolveUsingQueue(input, out int newCmax, out Stopwatch stopwatch1);
+            if (newCmax < this.upperBoundary)
             {
                 upperBoundary = newCmax;
                 bestSolution = newSolution;
@@ -29,36 +28,34 @@ namespace SPD1.Algorithms
             RPQJob b = getJobB(newSolution, newCmax);
             RPQJob a = getJobA(newSolution, newCmax, b);
             RPQJob c = getJobC(newSolution, a, b);
-            if(c.JobIndex==-1)
+            if (c.JobIndex == -1)
             {
-                return bestSolution;
                 stopwatch.Stop();
+                return bestSolution;
             }
-            int nextToCIndexInList = newSolution.IndexOf(c)+1;
-            int count = newSolution.IndexOf(b)-nextToCIndexInList+1;
+            int nextToCIndexInList = newSolution.IndexOf(c) + 1;
+            int count = newSolution.IndexOf(b) - nextToCIndexInList + 1;
             List<RPQJob> Klist = newSolution.GetRange(nextToCIndexInList, count);
             int minPrepTime = Klist.Aggregate((current, x) => current.PreparationTime > x.PreparationTime ? x : current).PreparationTime; //najmniejszy czas przygotowania
             int minDelivTime = Klist.Aggregate((current, x) => current.DeliveryTime > x.DeliveryTime ? x : current).DeliveryTime; //najmniejszy czas dostarczenia 
             int workTimes = sumWorkTimes(Klist); //suma czasów wykonania
             int sumTime = minPrepTime + minDelivTime + workTimes; //h dla listy K bez C
-            
-            //int cPrepTimeTemp = c.PreparationTime; //zmienna tymczasowa
-            //c.PreparationTime = Math.Max(c.PreparationTime, minPrepTime + workTimes); //podmiana wartości w zadaniu c
+
             RPQJob cJobInInput = input.Find(x => x.JobIndex == c.JobIndex);
             int tempIndex = input.IndexOf(cJobInInput);
             int cPrepTimeTemp = cJobInInput.PreparationTime; //zmienna tymczasowa
             cJobInInput.PreparationTime = Math.Max(c.PreparationTime, minPrepTime + workTimes);
-            lowerBoundary = SchragePMTN.Solve(input.ToList(), out Stopwatch stopwatch2);
             input[tempIndex] = cJobInInput;
+            lowerBoundary = SchragePMTN.SolveUsingQueue(input.ToList(), out Stopwatch stopwatch2);
 
             int minPrepTimeWithC = (cJobInInput.PreparationTime < minPrepTime) ? cJobInInput.PreparationTime : minPrepTime;
             int minDelivTimeWithC = (cJobInInput.DeliveryTime < minDelivTime) ? cJobInInput.DeliveryTime : minDelivTime;
             int sumWithC = minPrepTimeWithC + minDelivTimeWithC + workTimes + cJobInInput.WorkTime; //h dla listy K z C
-            
+
             lowerBoundary = Math.Max(sumTime, Math.Max(sumWithC, lowerBoundary));
             if (lowerBoundary < upperBoundary)
             {
-                Solve(input.ToList(),out upperBoundary, out Cmax, out Stopwatch stopwatch3);
+                Solve(input.ToList(), out Stopwatch stopwatch3);
             }
             cJobInInput.PreparationTime = cPrepTimeTemp;
             input[tempIndex] = cJobInInput;
@@ -67,16 +64,16 @@ namespace SPD1.Algorithms
             int cDelivTimeTemp = c.DeliveryTime;
             cJobInInput.DeliveryTime = Math.Max(c.DeliveryTime, minDelivTime + workTimes); //podmiana wartości w zadaniu c
             input[tempIndex] = cJobInInput;
-            lowerBoundary = SchragePMTN.Solve(input.ToList(), out stopwatch2);
-            
+            lowerBoundary = SchragePMTN.SolveUsingQueue(input.ToList(), out stopwatch2);
+
             minPrepTimeWithC = (cJobInInput.PreparationTime < minPrepTime) ? cJobInInput.PreparationTime : minPrepTime;
             minDelivTimeWithC = (cJobInInput.DeliveryTime < minDelivTime) ? cJobInInput.DeliveryTime : minDelivTime;
             sumWithC = minPrepTimeWithC + minDelivTimeWithC + workTimes + cJobInInput.WorkTime; //h dla listy K z C
-            
+
             lowerBoundary = Math.Max(sumTime, Math.Max(sumWithC, lowerBoundary));
             if (lowerBoundary < upperBoundary)
             {
-                Solve(input.ToList(),out upperBoundary, out Cmax,out Stopwatch stopwatch3);
+                Solve(input.ToList(), out Stopwatch stopwatch3);
             }
             cJobInInput.DeliveryTime = cDelivTimeTemp;
             input[tempIndex] = cJobInInput;
@@ -173,7 +170,7 @@ namespace SPD1.Algorithms
         public static int sumWorkTimes(List<RPQJob> list)
         {
             int time = 0;
-            foreach(RPQJob job in list)
+            foreach (RPQJob job in list)
             {
                 time += job.WorkTime; //dodaj czasy wykonania
             }

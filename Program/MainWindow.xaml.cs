@@ -151,8 +151,9 @@ namespace SPD1
         {
 
             List<RPQJob> list = RPQLoadData.LoadDataFromFile();
-            Carlier.Solve(list,int.MaxValue,out int Cmax ,out Stopwatch stopwatch);
-            Trace.WriteLine("Cmax: " + Cmax);
+            Carlier carlier = new Carlier();
+            carlier.Solve(list,out Stopwatch stopwatch);
+            Trace.WriteLine("Cmax: " + carlier.Cmax);
             Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
         }
     }

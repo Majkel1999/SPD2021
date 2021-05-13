@@ -149,12 +149,27 @@ namespace SPD1
 
         private void BasicCarlierSolveButton_Click(object sender, RoutedEventArgs e)
         {
+            //carlier.ClearBeforeRun(); //używać tej funkcji szczególnie przy wywoływaniu kilku badań na tym samym obiekcie
 
             List<RPQJob> list = RPQLoadData.LoadDataFromFile();
             Carlier carlier = new Carlier();
-            carlier.Solve(list,out Stopwatch stopwatch);
+            carlier.Solve(list, out Stopwatch stopwatch);
+            RPQViewer view = new RPQViewer(carlier.bestSolution);
             Trace.WriteLine("Cmax: " + carlier.Cmax);
             Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
+            view.Show();
+        }
+
+        private void BasicCarlierSolveUsingQueueButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            List<RPQJob> list = RPQLoadData.LoadDataFromFile();
+            Carlier carlier = new Carlier();
+            carlier.SolveUsingQueue(list, out Stopwatch stopwatch);
+            RPQViewer view = new RPQViewer(carlier.bestSolution);
+            Trace.WriteLine("Cmax: " + carlier.Cmax);
+            Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
+            view.Show();
         }
     }
 }

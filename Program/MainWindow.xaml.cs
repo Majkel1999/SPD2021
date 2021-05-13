@@ -146,5 +146,14 @@ namespace SPD1
             Test test = new Test();
             test.RunSchrageTest();
         }
+
+        private void BasicCarlierSolveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            List<RPQJob> list = RPQLoadData.LoadDataFromFile();
+            Carlier.Solve(list,int.MaxValue,out int Cmax ,out Stopwatch stopwatch);
+            Trace.WriteLine("Cmax: " + Cmax);
+            Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
+        }
     }
 }

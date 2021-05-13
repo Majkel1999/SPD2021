@@ -13,6 +13,44 @@ namespace SPD1.Misc
         public int DeliveryTime { get; set; }
     }
 
+    public struct RPQChartData
+    {
+        public int JobIndex { get; set; }
+        public int StartTime { get; set; }
+        public int EndTime { get; set; }
+        public int DeliveryTime { get; set; }
+    }
+    public class RPQChart
+    {
+        public static List<RPQChartData> MakeRPQChart(List<RPQJob> chartData)
+        {
+            RPQChartData prev = new RPQChartData();
+            List<RPQChartData> solution = new List<RPQChartData>();
+            for( int i = 0;i<chartData.Count;i++)
+            {
+                RPQJob job = chartData[i];
+                RPQChartData data = new RPQChartData();
+                data.JobIndex = job.JobIndex;
+                if (solution.Count == 0)
+                {
+                    data.StartTime = job.PreparationTime;
+                }
+                else if(job.PreparationTime>prev.EndTime)
+                {
+                    data.StartTime = job.PreparationTime;
+                }
+                else
+                {
+                    data.StartTime = prev.EndTime;
+                }
+                data.EndTime = data.StartTime + job.WorkTime;
+                data.DeliveryTime = data.EndTime + job.DeliveryTime;
+                prev = data;
+                solution.Add(data);
+            }
+            return solution;
+        }
+    }
     public static class RPQLoadData
     {
         public static List<RPQJob> LoadDataFromFile()
@@ -64,6 +102,7 @@ namespace SPD1.Misc
             }
             return jobsList;
         }
+
     }
 
 }

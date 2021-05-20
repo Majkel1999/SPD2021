@@ -94,7 +94,7 @@ namespace SPD1.Algorithms
             stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            List<RPQJob> newSolution = Schrage.SolveUsingQueue(input, out int newCmax, out Stopwatch stopwatch1);
+            List<RPQJob> newSolution = Schrage.SolveUsingQueue(input, out int newCmax);
             if (newCmax < this.upperBoundary)
             {
                 upperBoundary = newCmax;
@@ -122,7 +122,7 @@ namespace SPD1.Algorithms
             int cPrepTimeTemp = cJobInInput.PreparationTime; //zmienna tymczasowa
             cJobInInput.PreparationTime = Math.Max(c.PreparationTime, minPrepTime + workTimes);
             input[tempIndex] = cJobInInput;
-            lowerBoundary = SchragePMTN.SolveUsingQueue(input.ToList(), out Stopwatch stopwatch2);
+            lowerBoundary = SchragePMTN.SolveUsingQueue(input.ToList());
 
             int minPrepTimeWithC = (cJobInInput.PreparationTime < minPrepTime) ? cJobInInput.PreparationTime : minPrepTime;
             int minDelivTimeWithC = (cJobInInput.DeliveryTime < minDelivTime) ? cJobInInput.DeliveryTime : minDelivTime;
@@ -140,7 +140,7 @@ namespace SPD1.Algorithms
             int cDelivTimeTemp = c.DeliveryTime;
             cJobInInput.DeliveryTime = Math.Max(c.DeliveryTime, minDelivTime + workTimes); //podmiana wartości w zadaniu c
             input[tempIndex] = cJobInInput;
-            lowerBoundary = SchragePMTN.SolveUsingQueue(input.ToList(), out stopwatch2);
+            lowerBoundary = SchragePMTN.SolveUsingQueue(input.ToList());
 
             minPrepTimeWithC = (cJobInInput.PreparationTime < minPrepTime) ? cJobInInput.PreparationTime : minPrepTime;
             minDelivTimeWithC = (cJobInInput.DeliveryTime < minDelivTime) ? cJobInInput.DeliveryTime : minDelivTime;

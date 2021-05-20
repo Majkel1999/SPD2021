@@ -77,5 +77,42 @@ namespace SPD1.Algorithms
             stopwatch.Stop();
             return solution;
         }
+
+        public static List<RPQJob> SolveUsingQueue(List<RPQJob> jobs, out int Cmax)
+        {
+           
+            Cmax = 0;
+            PriorityQueue jobsPreparationQueue = new PriorityQueue();
+            PriorityQueue jobsDeliveryQueue = new PriorityQueue();
+
+            foreach (RPQJob item in jobs)
+            {
+                jobsPreparationQueue.Add(item, item.PreparationTime);
+            }
+
+            List<RPQJob> solution = new List<RPQJob>();
+            int time = jobsPreparationQueue.GetLowest().PreparationTime;
+
+           
+            while (jobsDeliveryQueue.Count > 0 || jobsPreparationQueue.Count > 0)
+            {
+                while (jobsPreparationQueue.Count > 0 && jobsPreparationQueue.GetLowest().PreparationTime <= time)
+                {
+                    RPQJob job = jobsPreparationQueue.GetLowestAndRemove();
+                    jobsDeliveryQueue.Add(job, job.DeliveryTime);
+                }
+                if (jobsDeliveryQueue.Count == 0)
+                    time = jobsPreparationQueue.GetLowest().PreparationTime;
+                else
+                {
+                    RPQJob job = jobsDeliveryQueue.GetHighestAndRemove();
+                    solution.Add(job);
+                    time += job.WorkTime;
+                    Cmax = Math.Max(Cmax, job.DeliveryTime + time);
+                }
+            }
+            
+            return solution;
+        }
     }
 }

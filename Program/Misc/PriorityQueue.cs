@@ -21,7 +21,8 @@ namespace SPD1.Misc
 	class PriorityQueue
 	{
 		public List<Node> nodes;
-
+		public int firstPriority = int.MaxValue;
+		public int lastPriority = int.MinValue;
 		public int Count => nodes.Count;
 
 		public PriorityQueue()
@@ -31,46 +32,74 @@ namespace SPD1.Misc
 
 		public void Add(RPQJob job, int priority)
 		{
-			int frontPriority = int.MaxValue;
-			int backPriority = int.MinValue;
-			if (nodes.Count == 0)
+			
+			if (Count == 0)
 			{
 				nodes.Add(new Node(job, priority));
-
+				firstPriority = priority;
+				lastPriority = priority;
 				return;
 			}
-			if (nodes.Count == 1)
+			if (Count == 1)
 			{
 				if (nodes[0].Priority >= priority)
+				{
 					nodes.Add(new Node(job, priority));
+					lastPriority = priority;
+				}
 				else
+				{
 					nodes.Insert(0, new Node(job, priority));
-
+					firstPriority = priority;
+				}
 				return;
 			}
+			
+			//int backPriority = nodes.Last().Priority;
+			if (lastPriority >= priority)
+            {
+                nodes.Add(new Node(job, priority));
+				lastPriority = priority;
+                return;
+            }
+			//int firstPriority = nodes.First().Priority;
 
-			for (int i = 0; i < nodes.Count - 1; i++)
-			{
-				frontPriority = nodes[i].Priority;
-				backPriority = nodes[i + 1].Priority;
-				if (priority > frontPriority)
-				{
-					nodes.Insert(i, new Node(job, priority));
-					return;
-				}
-				else if (priority > backPriority)
-				{
-					nodes.Insert(i + 1, new Node(job, priority));
-					return;
-				}
-			}
+			if(priority>firstPriority)
+            {
+				nodes.Insert(0, new Node(job, priority));
+				firstPriority = priority;
+				return;
+            }
 
-			if (backPriority >= priority)
-				nodes.Add(new Node(job, priority));
-		}
+            //for (int i = 0; i < nodes.Count - 1; i++)
+            //{
+            //    frontPriority = nodes[i].Priority;
+            //    backPriority = nodes[i + 1].Priority;
+            //    if (priority > frontPriority)
+            //    {
+            //        nodes.Insert(i, new Node(job, priority));
+            //        return;
+            //    }
+            //    else if (priority > backPriority)
+            //    {
+            //        nodes.Insert(i + 1, new Node(job, priority));
+            //        return;
+            //    }
+            //}
+
+			//if (index == -1)
+			//	nodes.Add(new Node(job, priority));
+			//else
 
 
-		public RPQJob GetHighest()
+            //if (backPriority >= priority)
+            //    nodes.Add(new Node(job, priority));
+			int index = nodes.FindIndex(x => x.Priority < priority);
+			nodes.Insert(index, new Node(job, priority));
+        }
+
+
+        public RPQJob GetHighest()
 		{
 			return nodes.First().Job;
 		}
@@ -79,6 +108,15 @@ namespace SPD1.Misc
 		{
 			RPQJob value = nodes.First().Job;
 			nodes.RemoveAt(0);
+			if (nodes.Count != 0)
+			{
+				firstPriority = nodes[0].Priority;
+			}
+            else
+            {
+				firstPriority = int.MaxValue;
+				lastPriority = int.MinValue;
+            }
 			return value;
 		}
 
@@ -91,7 +129,63 @@ namespace SPD1.Misc
 		{
 			RPQJob value = nodes.Last().Job;
 			nodes.RemoveAt(nodes.Count - 1);
+			if (nodes.Count != 0)
+			{
+				lastPriority = nodes.Last().Priority;
+			}
+			else
+			{
+				firstPriority = int.MaxValue;
+				lastPriority = int.MinValue;
+			}
 			return value;
 		}
+
+		public void DivideList(RPQJob job,int priority)
+        {
+			int count2 = Count / 2;
+			int count4 = Count / 4;
+			if (nodes[count2].Priority > priority)
+			{
+				if(nodes[count2+count4].Priority > priority)
+                {
+					int index = nodes.FindIndex(count2+count4+1,Count-(count2+count4+1),x => x.Priority < priority);
+					nodes.Insert(index, new Node(job, priority));
+				}
+                else
+                {
+					int index = nodes.FindIndex(count2 + 1, (count2+count4)-(count2+1)+1, x => x.Priority < priority);
+					if (index == -1)
+					{
+						nodes.Insert((count2 + count4) - (count2 + 1) + 1, new Node(job, priority));
+					}
+					else
+						nodes.Insert(index, new Node(job, priority));
+				}
+			}
+			else 
+			{
+				if (nodes[count4].Priority > priority)
+				{
+					int index = nodes.FindIndex(count4 + 1, count2 - (count4+1) +1, x => x.Priority < priority);
+					if (index == -1)
+					{
+						nodes.Insert(count2 - (count4 + 1) + 1, new Node(job, priority));
+					}
+					nodes.Insert(index, new Node(job, priority));
+				}
+				else
+				{
+					int index = nodes.FindIndex(0, count4+1, x => x.Priority < priority);
+					if(index==-1)
+                    {
+						nodes.Insert(count4 + 1, new Node(job, priority));
+                    }else
+					nodes.Insert(index, new Node(job, priority));
+				}
+			}
+
+        }
+		
 	}
 }

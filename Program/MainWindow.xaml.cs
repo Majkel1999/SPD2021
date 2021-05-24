@@ -171,5 +171,11 @@ namespace SPD1
             Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
             view.Show();
         }
+
+        private void TabuRPQ_Click(object sender, RoutedEventArgs e)
+		{
+            Test test = new Test();
+            test.RunTabuRPQTest();
+        }
     }
 }

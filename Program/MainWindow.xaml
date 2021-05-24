@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPD1"
         mc:Ignorable="d"
-        Title="SPD" Height="500" Width="600" ResizeMode="NoResize">
+        Title="SPD" Height="700" Width="600" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -40,5 +41,6 @@
         <Button x:Name="SchragTestButton" Content="Schrage Tests" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="SchragTestButton_Click"/>
         <Button x:Name="BasicCarlierSolveButton" Content="Basic Carlier" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="BasicCarlierSolveButton_Click"/>
         <Button x:Name="BasicCarlierSolveUsingQueueButton" Content="Basic Carlier Using Queue" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="BasicCarlierSolveUsingQueueButton_Click"/>
+        <Button x:Name="TabuRPQ" Content="Tabu RPQ" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuRPQ_Click"/>
     </Grid>
 </Window>

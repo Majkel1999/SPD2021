@@ -178,7 +178,18 @@ namespace SPD1
         private void GreedyCarlierButton_Click(object sender, RoutedEventArgs e)
         {
             List<RPQJob> list = RPQLoadData.LoadDataFromFile();
-            DeepGreedyCarlier carlier = new DeepGreedyCarlier();
+            GreedyCarlier carlier = new GreedyCarlier();
+            carlier.Solve(list, out Stopwatch stopwatch);
+            RPQViewer view = new RPQViewer(carlier.bestSolution);
+            Trace.WriteLine("Cmax: " + carlier.Cmax);
+            Trace.WriteLine("Stopwatch: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
+            view.Show();
+        }
+
+        private void DeepGreedyCarlierButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<RPQJob> list = RPQLoadData.LoadDataFromFile();
+            GreedyCarlier carlier = new GreedyCarlier(isSearchingDeep: true);
             carlier.Solve(list, out Stopwatch stopwatch);
             RPQViewer view = new RPQViewer(carlier.bestSolution);
             Trace.WriteLine("Cmax: " + carlier.Cmax);

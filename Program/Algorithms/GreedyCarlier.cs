@@ -10,20 +10,32 @@ namespace SPD1.Algorithms
     {
         public int Cmax = int.MaxValue;
         public List<RPQJob> bestSolution = new List<RPQJob>();
+
+        private bool m_isDeep = false;
+
+        public GreedyCarlier(bool isSearchingDeep = false)
+        {
+            m_isDeep = isSearchingDeep;
+        }
+
         public void Solve(List<RPQJob> inputList, out Stopwatch stopwatch)
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
 
             bestSolution = Schrage.Solve(inputList, out Cmax, out Stopwatch stopwatch1);
-            Solve(inputList.ToList(), bestSolution, Cmax);
+            Solve(inputList.ToList());
 
             stopwatch.Stop();
         }
-        private void Solve(List<RPQJob> inputList, List<RPQJob> newSolution, int newCmax)
+        private void Solve(List<RPQJob> inputList)
         {
-            bestSolution = newSolution;
-            Cmax = newCmax;
+            List<RPQJob> newSolution = Schrage.SolveUsingQueue(inputList, out int newCmax);
+            if (newCmax < Cmax)
+            {
+                bestSolution = newSolution;
+                Cmax = newCmax;
+            }
 
             RPQJob b = Carlier.getJobB(newSolution, newCmax);
             RPQJob a = Carlier.getJobA(newSolution, newCmax, b);
@@ -50,38 +62,53 @@ namespace SPD1.Algorithms
             job.PreparationTime = modifiedPreparationTime;
             inputList[jobIndexInList] = job;
 
-            List<RPQJob> leftSolution = Schrage.SolveUsingQueue(inputList, out int leftCmax, out Stopwatch stopwatch1);
+            int leftCmax = SchragePMTN.SolveUsingQueue(inputList);
 
             job.PreparationTime = originalPreparationTime;
             job.DeliveryTime = modifiedDeliveryTime;
             inputList[jobIndexInList] = job;
 
-            List<RPQJob> rigthSolution = Schrage.SolveUsingQueue(inputList, out int rigthCmax, out Stopwatch stopwatch2);
+            int rigthCmax = SchragePMTN.SolveUsingQueue(inputList);
 
-            if (leftCmax < rigthCmax && leftCmax < newCmax)
+            bool wentLeft = false;
+            bool wentRigth = false;
+
+            if (leftCmax <= rigthCmax && leftCmax < newCmax)
             {
                 job.DeliveryTime = originalDeliveryTime;
                 job.PreparationTime = modifiedPreparationTime;
                 inputList[jobIndexInList] = job;
-
-                Solve(inputList, leftSolution, leftCmax);
+                wentLeft = true;
+                Solve(inputList);
             }
             else if (rigthCmax < leftCmax && rigthCmax < newCmax)
             {
-                Solve(inputList, rigthSolution, rigthCmax);
+                wentRigth = true;
+                Solve(inputList);
             }
             else if (leftCmax == newCmax)
             {
                 job.DeliveryTime = originalDeliveryTime;
                 job.PreparationTime = modifiedPreparationTime;
                 inputList[jobIndexInList] = job;
-
-                Solve(inputList, leftSolution, leftCmax);
+                wentLeft = true;
+                Solve(inputList);
             }
             else if (rigthCmax == newCmax)
             {
-                Solve(inputList, rigthSolution, rigthCmax);
+                wentRigth = true;
+                Solve(inputList);
             }
+
+            if (!wentLeft && leftCmax == newCmax && m_isDeep)
+            {
+                job.DeliveryTime = originalDeliveryTime;
+                job.PreparationTime = modifiedPreparationTime;
+                inputList[jobIndexInList] = job;
+                Solve(inputList);
+            }
+            if (!wentRigth && (rigthCmax == leftCmax || rigthCmax == newCmax) && m_isDeep)
+                Solve(inputList);
         }
     }
 }

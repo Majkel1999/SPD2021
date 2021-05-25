@@ -234,10 +234,11 @@ namespace SPD1.Algorithms
         public static RPQJob getJobC(List<RPQJob> list, RPQJob jobA, RPQJob jobB)
         {
             //zacznij od zadania bezpośrednio przed zadaniem B, zacznij od tyłu
-            int startIndex = list.IndexOf(jobB) - 1;
+            int startIndex = list.IndexOf(jobB);
             int endIndex = list.IndexOf(jobA);
             if (startIndex > endIndex)
             {
+                startIndex = startIndex - 1;
                 for (int i = startIndex; i >= endIndex; i--)
                 {
                     if (list[i].DeliveryTime < jobB.DeliveryTime)
@@ -248,6 +249,7 @@ namespace SPD1.Algorithms
             }
             else
             {
+                endIndex = endIndex-1;
                 for (int i = endIndex; i >= startIndex; i--)
                 {
                     if (list[i].DeliveryTime < jobB.DeliveryTime)

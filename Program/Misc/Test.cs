@@ -8,6 +8,7 @@ using System.IO;
 using Microsoft.Win32;
 using SPD1.Misc;
 using SPD1.Algorithms;
+using System.Threading;
 
 namespace SPD1
 {
@@ -290,16 +291,15 @@ namespace SPD1
                 file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
                 stopwatch.Reset();
 
-			}
-			file.Close();
-		}
-public void RunFullRPQTest()
+            }
+            file.Close();
+        }
+        public void RunFullRPQTest()
         {
             instance = Directory.GetFiles(rpqTestFilesPath);
             StreamWriter file = new StreamWriter("TabuRPQ.txt");
-            file.WriteLine("Instancja;Zadania;Tabu200;;Tabu500;;Tabu1000;;Carlier;;GreedyCarlier;;DeepGreedyCarlier");
-            file.WriteLine("Instancja;Zadania;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;");
-            Stopwatch stopwatch;
+            file.WriteLine("Instancja;Zadania;Tabu200;;Tabu500;;Tabu100;;Carlier;;CarlierQueue;;GreedyCarlier;;DeepGreedyCarlier");
+            file.WriteLine("Instancja;Zadania;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;");
             for (int i = 0; i < instance.Count(); i++)
             {
                 Trace.WriteLine("Jestesmy na: " + instance[i]);
@@ -307,79 +307,130 @@ public void RunFullRPQTest()
 
                 file.Write(instance[i].Split('\\').Last() + ";" + list.Count + ";");
 
-                TSAlgorithm ts = new TSAlgorithm();
-                int Cmax = ts.RunRPQ(out stopwatch, 200, 200, 200, list);
-                file.Write(Cmax + ";");
-                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
-                stopwatch.Reset();
+                int Cmax1 = 0, Cmax2 = 0, Cmax3 = 0, Cmax4 = 0, Cmax5 = 0, Cmax6 = 0, Cmax7 = 0;
+                Stopwatch stopwatch1 = new Stopwatch(), stopwatch2 = new Stopwatch(), stopwatch3 = new Stopwatch()
+                    , stopwatch4 = new Stopwatch(), stopwatch5 = new Stopwatch(), stopwatch6 = new Stopwatch(), stopwatch7 = new Stopwatch();
 
-                list = RPQLoadData.LoadDataFromFile(instance[i]);
-                Cmax = ts.RunRPQ(out stopwatch, 500, 500, 500, list);
-                file.Write(Cmax + ";");
-                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
-                stopwatch.Reset();
-
-                list = RPQLoadData.LoadDataFromFile(instance[i]);
-                Cmax = ts.RunRPQ(out stopwatch, 1000, 1000, 1000, list);
-                file.Write(Cmax + ";");
-                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
-                stopwatch.Reset();
-
-                if (!instance[i].Contains("data.007") || !instance[i].Contains("data.008"))
+                Thread thread1 = new Thread(() =>
                 {
-                    list = RPQLoadData.LoadDataFromFile(instance[i]);
+                    TSAlgorithm ts = new TSAlgorithm();
+                    Cmax1 = ts.RunRPQ(out stopwatch1, 250, 250, 200, list.ToList());
+                    Trace.WriteLine("Watek1");
+                });
+                Thread thread2 = new Thread(() =>
+                {
+                    TSAlgorithm ts = new TSAlgorithm();
+                    Cmax2 = ts.RunRPQ(out stopwatch2, 500, 500, 200, list.ToList());
+                    Trace.WriteLine("Watek2");
+                });
+                Thread thread3 = new Thread(() =>
+                {
+                    TSAlgorithm ts = new TSAlgorithm();
+                    Cmax3 = ts.RunRPQ(out stopwatch3, 100, 100, 200, list.ToList());
+                    Trace.WriteLine("Watek3");
+                });
+                Thread thread4 = new Thread(() =>
+                {
                     Carlier carlier = new Carlier();
-                    carlier.Solve(list, out stopwatch);
-                    file.Write(carlier.Cmax + ";");
-                    file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
-                    stopwatch.Reset();
+                    carlier.Solve(list.ToList(), out stopwatch4);
+                    Cmax4 = carlier.Cmax;
+                    Trace.WriteLine("Watek4");
+                });
+                Thread thread5 = new Thread(() =>
+                {
+                    Carlier carlier = new Carlier();
+                    carlier.SolveUsingQueue(list.ToList(), out stopwatch5);
+                    Cmax5 = carlier.Cmax;
+                    Trace.WriteLine("Watek5");
+                });
+                Thread thread6 = new Thread(() =>
+                {
+                    GreedyCarlier greedyCarlier = new GreedyCarlier();
+                    greedyCarlier.Solve(list.ToList(), out stopwatch6);
+                    Cmax6 = greedyCarlier.Cmax;
+                    Trace.WriteLine("Watek6");
+                });
+                Thread thread7 = new Thread(() =>
+                {
+                    GreedyCarlier greedyCarlier = new GreedyCarlier(true);
+                    greedyCarlier.Solve(list.ToList(), out stopwatch7);
+                    Cmax7 = greedyCarlier.Cmax;
+                    Trace.WriteLine("Watek7");
+                });
+
+                thread1.Start();
+                thread2.Start();
+                thread3.Start();
+                if (!instance[i].Contains("data.007") && !instance[i].Contains("data.008"))
+                {
+                    thread4.Start();
+                    thread5.Start();
                 }
+                thread6.Start();
+                thread7.Start();
 
-                list = RPQLoadData.LoadDataFromFile(instance[i]);
-                GreedyCarlier greedyCarlier = new GreedyCarlier();
-                greedyCarlier.Solve(list, out stopwatch);
-                file.Write(greedyCarlier.Cmax + ";");
-                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
-                stopwatch.Reset();
+                thread1.Join();
+                thread2.Join();
+                thread3.Join();
+                if (!instance[i].Contains("data.007") && !instance[i].Contains("data.008"))
+                {
+                    thread4.Join();
+                    thread5.Join();
+                }
+                thread6.Join();
+                thread7.Join();
 
-                list = RPQLoadData.LoadDataFromFile(instance[i]);
-                greedyCarlier = new GreedyCarlier(true);
-                greedyCarlier.Solve(list, out stopwatch);
-                file.Write(greedyCarlier.Cmax + ";");
-                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
-                stopwatch.Reset();
-
+                if (!instance[i].Contains("data.007") && !instance[i].Contains("data.008"))
+                {
+                    file.Write(Cmax1 + ";" + stopwatch1.Elapsed.TotalMilliseconds + ";" +
+                    Cmax2 + ";" + stopwatch2.Elapsed.TotalMilliseconds + ";" +
+                    Cmax3 + ";" + stopwatch3.Elapsed.TotalMilliseconds + ";" +
+                    Cmax4 + ";" + stopwatch4.Elapsed.TotalMilliseconds + ";" +
+                    Cmax5 + ";" + stopwatch5.Elapsed.TotalMilliseconds + ";" +
+                    Cmax6 + ";" + stopwatch6.Elapsed.TotalMilliseconds + ";" +
+                    Cmax7 + ";" + stopwatch7.Elapsed.TotalMilliseconds + "\n");
+                }
+                else
+                {
+                    file.Write(Cmax1 + ";" + stopwatch1.Elapsed.TotalMilliseconds + ";" +
+                        Cmax2 + ";" + stopwatch2.Elapsed.TotalMilliseconds + ";" +
+                        Cmax3 + ";" + stopwatch3.Elapsed.TotalMilliseconds + ";" +
+                        "0;" + "0;" +
+                        "0;" + "0;" +
+                        Cmax6 + ";" + stopwatch6.Elapsed.TotalMilliseconds + ";" +
+                        Cmax7 + ";" + stopwatch7.Elapsed.TotalMilliseconds + "\n");
+                }
             }
             file.Close();
         }
 
-		public void RunCarlierRPQTest()
-		{
-			string filesPath = ".\\TestFiles\\Data\\";
-			instance = Directory.GetFiles(filesPath);
-			StreamWriter file = new StreamWriter("CarlierRPQ.txt");
-			file.WriteLine("Instancja;Zadania;;BasicCarlier;;CarlierUsingQueue");
-			file.WriteLine("Instancja;Zadania;CMax;Czas;CMax;Czas");
-			Stopwatch stopwatch;
-			for (int i = 0; i < instance.Count()-2; i++)
-			{
-				Trace.WriteLine("Jestesmy na: " + instance[i]);
-				List<RPQJob> list = RPQLoadData.LoadDataFromFile(instance[i]);
+        public void RunCarlierRPQTest()
+        {
+            string filesPath = ".\\TestFiles\\Data\\";
+            instance = Directory.GetFiles(filesPath);
+            StreamWriter file = new StreamWriter("CarlierRPQ.txt");
+            file.WriteLine("Instancja;Zadania;;BasicCarlier;;CarlierUsingQueue");
+            file.WriteLine("Instancja;Zadania;CMax;Czas;CMax;Czas");
+            Stopwatch stopwatch;
+            for (int i = 0; i < instance.Count() - 2; i++)
+            {
+                Trace.WriteLine("Jestesmy na: " + instance[i]);
+                List<RPQJob> list = RPQLoadData.LoadDataFromFile(instance[i]);
 
-				file.Write(instance[i].Split('\\').Last() + ";" + list.Count + ";");
+                file.Write(instance[i].Split('\\').Last() + ";" + list.Count + ";");
 
-				Carlier carlier = new Carlier();
-				carlier.Solve(list, out stopwatch);
-				file.Write(carlier.Cmax + ";");
-				file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+                Carlier carlier = new Carlier();
+                carlier.Solve(list, out stopwatch);
+                file.Write(carlier.Cmax + ";");
+                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
 
-				Carlier carlier2 = new Carlier();
-				carlier2.Solve(list, out stopwatch);
-				file.Write(carlier.Cmax + ";");
-				file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
-				stopwatch.Reset();
-			}
-			file.Close();
-		}
-	}
+                Carlier carlier2 = new Carlier();
+                carlier2.Solve(list, out stopwatch);
+                file.Write(carlier.Cmax + ";");
+                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
+                stopwatch.Reset();
+            }
+            file.Close();
+        }
+    }
 }

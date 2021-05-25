@@ -200,7 +200,7 @@ namespace SPD1
         private void CarlierTestButton_Click(object sender, RoutedEventArgs e)
         {
             Test test = new Test();
-            test.RunCarlierRPQTest();
+            test.RunFullRPQTest();
         }
     }
 }

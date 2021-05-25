@@ -294,7 +294,8 @@ namespace SPD1
 
 		public void RunCarlierRPQTest()
 		{
-			instance = Directory.GetFiles(testFilesPath);
+			string filesPath = ".\\TestFiles\\Data\\";
+			instance = Directory.GetFiles(filesPath);
 			StreamWriter file = new StreamWriter("CarlierRPQ.txt");
 			file.WriteLine("Instancja;Zadania;;BasicCarlier;;CarlierUsingQueue");
 			file.WriteLine("Instancja;Zadania;CMax;Czas;CMax;Czas");

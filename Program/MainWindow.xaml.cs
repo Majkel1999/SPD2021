@@ -196,5 +196,11 @@ namespace SPD1
             Trace.WriteLine("Stopwatch: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
             view.Show();
         }
+
+        private void CarlierTestButton_Click(object sender, RoutedEventArgs e)
+        {
+            Test test = new Test();
+            test.RunCarlierRPQTest();
+        }
     }
 }

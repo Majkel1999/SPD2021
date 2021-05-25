@@ -14,7 +14,7 @@ namespace SPD1
 	class Test
 	{
 		string[] instance;
-		string testFilesPath = ".\\TestFiles\\RPQ\\";
+		string testFilesPath = ".\\TestFiles\\Data\\";
 		public void RunTest1()
 		{
 			instance = Directory.GetFiles(testFilesPath);

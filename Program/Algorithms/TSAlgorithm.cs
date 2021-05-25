@@ -537,33 +537,35 @@ namespace SPD1
 			bestSolutionOfAlgorithm = permutation;
 			tabuList.Add(bestSolutionOfAlgorithm);
 
-			int counter = countOfIterations;
-			while (counter > 0) //warunek stopu jako ilość iteracji
+			if (inputData.Count > 9)
 			{
-				//wygeneruj sąsiedztwo
-				List<List<RPQJob>> neighbourhood = GenerateNeighbourhood(permutation, countOfPermutations);
-				//wyznacz najlepsze rozwiazanie
-				List<RPQJob> solution = CalculateBestSolution(neighbourhood, tabuList, out int cmax);
-				//popraw listę tabu
-				if (tabuList.Count == sizeOfTabuList)
+				int counter = countOfIterations;
+				while (counter > 0) //warunek stopu jako ilość iteracji
 				{
-					tabuList.RemoveAt(0);
-					tabuList.Add(solution);
-				}
-				else
-				{
-					tabuList.Add(solution);
-				}
+					//wygeneruj sąsiedztwo
+					List<List<RPQJob>> neighbourhood = GenerateNeighbourhood(permutation, countOfPermutations);
+					//wyznacz najlepsze rozwiazanie
+					List<RPQJob> solution = CalculateBestSolution(neighbourhood, tabuList, out int cmax);
+					//popraw listę tabu
+					if (tabuList.Count == sizeOfTabuList)
+					{
+						tabuList.RemoveAt(0);
+						tabuList.Add(solution);
+					}
+					else
+					{
+						tabuList.Add(solution);
+					}
 
-				if (bestSolutionCmax > cmax)
-				{
-					bestSolutionOfAlgorithm = solution;
-					bestSolutionCmax = cmax;
+					if (bestSolutionCmax > cmax)
+					{
+						bestSolutionOfAlgorithm = solution;
+						bestSolutionCmax = cmax;
+					}
+					--counter;
+					permutation = solution;
 				}
-				--counter;
-				permutation = solution;
 			}
-
 			stopwatch.Stop();
 
 			return GetCmax(bestSolutionOfAlgorithm);
@@ -573,7 +575,7 @@ namespace SPD1
 		{
 			int Cmax = 0;
 			var chart = RPQChart.MakeRPQChart(jobs);
-			foreach(var data in chart)
+			foreach (var data in chart)
 			{
 				if (Cmax < data.DeliveryTime)
 					Cmax = data.DeliveryTime;

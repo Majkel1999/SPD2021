@@ -57,6 +57,7 @@ namespace SPD1.Algorithms
             int cPrepTimeTemp = cJobInInput.PreparationTime; //zmienna tymczasowa
             cJobInInput.PreparationTime = Math.Max(c.PreparationTime, minPrepTime + workTimes);
             input[tempIndex] = cJobInInput;
+
             lowerBoundary = SchragePMTN.Solve(input.ToList(), out Stopwatch stopwatch2);
 
             int minPrepTimeWithC = (cJobInInput.PreparationTime < minPrepTime) ? cJobInInput.PreparationTime : minPrepTime;
@@ -129,7 +130,6 @@ namespace SPD1.Algorithms
             int minPrepTimeWithC = (cJobInInput.PreparationTime < minPrepTime) ? cJobInInput.PreparationTime : minPrepTime;
             int minDelivTimeWithC = (cJobInInput.DeliveryTime < minDelivTime) ? cJobInInput.DeliveryTime : minDelivTime;
             int sumWithC = minPrepTimeWithC + minDelivTimeWithC + workTimes + cJobInInput.WorkTime; //h dla listy K z C
-
             lowerBoundary = Math.Max(sumTime, Math.Max(sumWithC, lowerBoundary));
             if (lowerBoundary < upperBoundary)
             {
@@ -234,10 +234,11 @@ namespace SPD1.Algorithms
         public static RPQJob getJobC(List<RPQJob> list, RPQJob jobA, RPQJob jobB)
         {
             //zacznij od zadania bezpośrednio przed zadaniem B, zacznij od tyłu
-            int startIndex = list.IndexOf(jobB) - 1;
+            int startIndex = list.IndexOf(jobB);
             int endIndex = list.IndexOf(jobA);
             if (startIndex > endIndex)
             {
+                startIndex = startIndex - 1;
                 for (int i = startIndex; i >= endIndex; i--)
                 {
                     if (list[i].DeliveryTime < jobB.DeliveryTime)
@@ -248,6 +249,7 @@ namespace SPD1.Algorithms
             }
             else
             {
+                endIndex = endIndex-1;
                 for (int i = endIndex; i >= startIndex; i--)
                 {
                     if (list[i].DeliveryTime < jobB.DeliveryTime)

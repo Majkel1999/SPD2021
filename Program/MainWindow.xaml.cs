@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
-using System.IO;
-using System;
-using SPD1.Misc;
 using SPD1.Algorithms;
-using System.Linq;
+using SPD1.Misc;
 
 namespace SPD1
 {
@@ -118,7 +115,7 @@ namespace SPD1
         private void RPQSolve_Click(object sender, RoutedEventArgs e)
         {
             List<RPQJob> list = RPQLoadData.LoadDataFromFile();
-			RPQViewer view = new RPQViewer(Schrage.Solve(list, out int Cmax, out Stopwatch stopwatch));
+            RPQViewer view = new RPQViewer(Schrage.Solve(list, out int Cmax, out Stopwatch stopwatch));
             Trace.WriteLine("Cmax: " + Cmax);
             Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
 
@@ -131,8 +128,8 @@ namespace SPD1
 
         private void SchragePmtnButton_Click(object sender, RoutedEventArgs e)
         {
-			List<RPQJob> list = RPQLoadData.LoadDataFromFile();
-            int Cmax = SchragePMTN.Solve(list, out Stopwatch stopwatch) ;
+            List<RPQJob> list = RPQLoadData.LoadDataFromFile();
+            int Cmax = SchragePMTN.Solve(list, out Stopwatch stopwatch);
             Trace.WriteLine("Cmax: " + Cmax);
             Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
 
@@ -162,7 +159,6 @@ namespace SPD1
 
         private void BasicCarlierSolveUsingQueueButton_Click(object sender, RoutedEventArgs e)
         {
-
             List<RPQJob> list = RPQLoadData.LoadDataFromFile();
             Carlier carlier = new Carlier();
             carlier.SolveUsingQueue(list, out Stopwatch stopwatch);
@@ -174,9 +170,31 @@ namespace SPD1
         }
 
         private void TabuRPQ_Click(object sender, RoutedEventArgs e)
-		{
+        {
             Test test = new Test();
             test.RunTabuRPQTest();
+        }
+
+        private void GreedyCarlierButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<RPQJob> list = RPQLoadData.LoadDataFromFile();
+            GreedyCarlier carlier = new GreedyCarlier();
+            carlier.Solve(list, out Stopwatch stopwatch);
+            RPQViewer view = new RPQViewer(carlier.bestSolution);
+            Trace.WriteLine("Cmax: " + carlier.Cmax);
+            Trace.WriteLine("Stopwatch: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
+            view.Show();
+        }
+
+        private void DeepGreedyCarlierButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<RPQJob> list = RPQLoadData.LoadDataFromFile();
+            GreedyCarlier carlier = new GreedyCarlier(isSearchingDeep: true);
+            carlier.Solve(list, out Stopwatch stopwatch);
+            RPQViewer view = new RPQViewer(carlier.bestSolution);
+            Trace.WriteLine("Cmax: " + carlier.Cmax);
+            Trace.WriteLine("Stopwatch: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
+            view.Show();
         }
     }
 }

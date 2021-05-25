@@ -22,6 +22,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="PermutationAlgButton_Click"/>
         <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="JohnsonAlgButton_Click"/>
@@ -42,5 +43,7 @@
         <Button x:Name="BasicCarlierSolveButton" Content="Basic Carlier" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="BasicCarlierSolveButton_Click"/>
         <Button x:Name="BasicCarlierSolveUsingQueueButton" Content="Basic Carlier Using Queue" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="BasicCarlierSolveUsingQueueButton_Click"/>
         <Button x:Name="TabuRPQ" Content="Tabu RPQ" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuRPQ_Click"/>
+        <Button x:Name="GreedyCarlierButton" Content="Greedy Carlier" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="GreedyCarlierButton_Click"/>
+        <Button x:Name="DeepGreedyCarlierButton" Content="Deep Greedy Carlier" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="DeepGreedyCarlierButton_Click"/>
     </Grid>
 </Window>

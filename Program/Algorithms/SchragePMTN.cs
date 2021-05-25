@@ -55,6 +55,8 @@ namespace SPD1.Algorithms
         public static int SolveUsingQueue(List<RPQJob> jobs, out Stopwatch stopwatch)
         {
             stopwatch = new Stopwatch();
+
+            
             PriorityQueue jobsPreparationQueue = new PriorityQueue();
             PriorityQueue jobsDeliveryQueue = new PriorityQueue();
             List<RPQJob> temp = jobs.ToList();
@@ -103,42 +105,51 @@ namespace SPD1.Algorithms
 
         public static int SolveUsingQueue(List<RPQJob> jobs)
         {
-            PriorityQueue jobsPreparationQueue = new PriorityQueue();
-            PriorityQueue jobsDeliveryQueue = new PriorityQueue();
-            List<RPQJob> temp = jobs.ToList();
+            PriorityQueue<RPQJob> jobsPreparationQueue = new PriorityQueue<RPQJob>(true);
+            PriorityQueue<RPQJob> jobsDeliveryQueue = new PriorityQueue<RPQJob>(false);
+
+            //PriorityQueue jobsPreparationQueue = new PriorityQueue();
+            //PriorityQueue jobsDeliveryQueue = new PriorityQueue();
+            List <RPQJob> temp = jobs.ToList();
 
             foreach (RPQJob item in temp)
             {
-                jobsPreparationQueue.Add(item, item.PreparationTime);
+                jobsPreparationQueue.Enqueue(item.PreparationTime, item);
+                //jobsPreparationQueue.Add(item, item.PreparationTime);
             }
 
             int time = 0;
             int Cmax = 0;
-
-            RPQJob l = jobsPreparationQueue.GetLowest();
+            RPQJob l = jobsPreparationQueue.GetValueAtZero();
+            //RPQJob l = jobsPreparationQueue.GetLowest();
             l.DeliveryTime = int.MaxValue;
 
             while (jobsDeliveryQueue.Count > 0 || jobsPreparationQueue.Count > 0)
             {
-                while (jobsPreparationQueue.Count > 0 && jobsPreparationQueue.GetLowest().PreparationTime <= time)
+                while (jobsPreparationQueue.Count > 0 && jobsPreparationQueue.GetValueAtZero().PreparationTime <= time)
                 {
-                    RPQJob job = jobsPreparationQueue.GetLowestAndRemove();
-                    jobsDeliveryQueue.Add(job, job.DeliveryTime);
+                    RPQJob job = jobsPreparationQueue.Dequeue();
+                    //RPQJob job = jobsPreparationQueue.GetLowestAndRemove();
+                    jobsDeliveryQueue.Enqueue(job.DeliveryTime, job);
+                    //sDeliveryQueue.Add(job, job.DeliveryTime);
                     if (job.DeliveryTime > l.DeliveryTime)
                     {
                         l.WorkTime = time - job.PreparationTime;
                         time = job.PreparationTime;
                         if (l.WorkTime > 0)
                         {
-                            jobsDeliveryQueue.Add(l, l.DeliveryTime);
+                            //jobsDeliveryQueue.Add(l, l.DeliveryTime);
+                            jobsDeliveryQueue.Enqueue(l.DeliveryTime,l);
                         }
                     }
                 }
                 if (jobsDeliveryQueue.Count == 0)
-                    time = jobsPreparationQueue.GetLowest().PreparationTime;
+                    time = jobsPreparationQueue.GetValueAtZero().PreparationTime;
+                    //time = jobsPreparationQueue.GetLowest().PreparationTime;
                 else
                 {
-                    RPQJob job = jobsDeliveryQueue.GetHighestAndRemove();
+                    RPQJob job = jobsDeliveryQueue.Dequeue();
+                   // RPQJob job = jobsDeliveryQueue.GetHighestAndRemove();
                     l = job;
                     time += job.WorkTime;
                     Cmax = Math.Max(Cmax, job.DeliveryTime + time);

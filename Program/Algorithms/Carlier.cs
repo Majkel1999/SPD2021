@@ -12,6 +12,7 @@ namespace SPD1.Algorithms
         public int lowerBoundary = 0;
         public int Cmax = int.MaxValue;
         public List<RPQJob> bestSolution = new List<RPQJob>();
+        public int counter = 0;
 
         /// <summary>
         /// Funkcja ustawiająca pola klasy. Wykonać przed wykonaniem Solve() lub SolveUsingQueue()
@@ -69,7 +70,6 @@ namespace SPD1.Algorithms
             }
             cJobInInput.PreparationTime = cPrepTimeTemp;
             input[tempIndex] = cJobInInput;
-            //c.PreparationTime = cPrepTimeTemp;
 
             int cDelivTimeTemp = c.DeliveryTime;
             cJobInInput.DeliveryTime = Math.Max(c.DeliveryTime, minDelivTime + workTimes); //podmiana wartości w zadaniu c
@@ -101,9 +101,11 @@ namespace SPD1.Algorithms
                 bestSolution = newSolution;
                 Cmax = newCmax;
             }
+
             RPQJob b = getJobB(newSolution, newCmax);
             RPQJob a = getJobA(newSolution, newCmax, b);
             RPQJob c = getJobC(newSolution, a, b);
+            
             if (c.JobIndex == -1)
             {
                 stopwatch.Stop();
@@ -134,8 +136,6 @@ namespace SPD1.Algorithms
                 SolveUsingQueue(input.ToList(), out Stopwatch stopwatch3);
             }
             cJobInInput.PreparationTime = cPrepTimeTemp;
-            input[tempIndex] = cJobInInput;
-            //c.PreparationTime = cPrepTimeTemp;
 
             int cDelivTimeTemp = c.DeliveryTime;
             cJobInInput.DeliveryTime = Math.Max(c.DeliveryTime, minDelivTime + workTimes); //podmiana wartości w zadaniu c

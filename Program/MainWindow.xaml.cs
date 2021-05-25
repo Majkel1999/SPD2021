@@ -169,6 +169,7 @@ namespace SPD1
             RPQViewer view = new RPQViewer(carlier.bestSolution);
             Trace.WriteLine("Cmax: " + carlier.Cmax);
             Trace.WriteLine("Elapsed ms: " + stopwatch.Elapsed.TotalMilliseconds);
+            //Trace.WriteLine("recur: " + carlier.counter);
             view.Show();
         }
 

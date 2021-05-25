@@ -56,6 +56,7 @@ namespace SPD1.Algorithms
             int cPrepTimeTemp = cJobInInput.PreparationTime; //zmienna tymczasowa
             cJobInInput.PreparationTime = Math.Max(c.PreparationTime, minPrepTime + workTimes);
             input[tempIndex] = cJobInInput;
+
             lowerBoundary = SchragePMTN.Solve(input.ToList(), out Stopwatch stopwatch2);
 
             int minPrepTimeWithC = (cJobInInput.PreparationTime < minPrepTime) ? cJobInInput.PreparationTime : minPrepTime;
@@ -127,7 +128,6 @@ namespace SPD1.Algorithms
             int minPrepTimeWithC = (cJobInInput.PreparationTime < minPrepTime) ? cJobInInput.PreparationTime : minPrepTime;
             int minDelivTimeWithC = (cJobInInput.DeliveryTime < minDelivTime) ? cJobInInput.DeliveryTime : minDelivTime;
             int sumWithC = minPrepTimeWithC + minDelivTimeWithC + workTimes + cJobInInput.WorkTime; //h dla listy K z C
-
             lowerBoundary = Math.Max(sumTime, Math.Max(sumWithC, lowerBoundary));
             if (lowerBoundary < upperBoundary)
             {

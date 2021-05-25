@@ -290,11 +290,10 @@ namespace SPD1
                 file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
                 stopwatch.Reset();
 
-            }
-            file.Close();
-        }
-
-        public void RunFullRPQTest()
+			}
+			file.Close();
+		}
+public void RunFullRPQTest()
         {
             instance = Directory.GetFiles(rpqTestFilesPath);
             StreamWriter file = new StreamWriter("TabuRPQ.txt");
@@ -354,5 +353,33 @@ namespace SPD1
             file.Close();
         }
 
-    }
+		public void RunCarlierRPQTest()
+		{
+			string filesPath = ".\\TestFiles\\Data\\";
+			instance = Directory.GetFiles(filesPath);
+			StreamWriter file = new StreamWriter("CarlierRPQ.txt");
+			file.WriteLine("Instancja;Zadania;;BasicCarlier;;CarlierUsingQueue");
+			file.WriteLine("Instancja;Zadania;CMax;Czas;CMax;Czas");
+			Stopwatch stopwatch;
+			for (int i = 0; i < instance.Count()-2; i++)
+			{
+				Trace.WriteLine("Jestesmy na: " + instance[i]);
+				List<RPQJob> list = RPQLoadData.LoadDataFromFile(instance[i]);
+
+				file.Write(instance[i].Split('\\').Last() + ";" + list.Count + ";");
+
+				Carlier carlier = new Carlier();
+				carlier.Solve(list, out stopwatch);
+				file.Write(carlier.Cmax + ";");
+				file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+
+				Carlier carlier2 = new Carlier();
+				carlier2.Solve(list, out stopwatch);
+				file.Write(carlier.Cmax + ";");
+				file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
+				stopwatch.Reset();
+			}
+			file.Close();
+		}
+	}
 }

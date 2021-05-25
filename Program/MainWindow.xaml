@@ -45,5 +45,6 @@
         <Button x:Name="TabuRPQ" Content="Tabu RPQ" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuRPQ_Click"/>
         <Button x:Name="GreedyCarlierButton" Content="Greedy Carlier" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="GreedyCarlierButton_Click"/>
         <Button x:Name="DeepGreedyCarlierButton" Content="Deep Greedy Carlier" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="DeepGreedyCarlierButton_Click"/>
+        <Button x:Name="CarlierTestButton" Content="Carlier Time Test" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="CarlierTestButton_Click"/>
     </Grid>
 </Window>

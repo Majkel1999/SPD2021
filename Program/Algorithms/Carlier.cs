@@ -12,6 +12,7 @@ namespace SPD1.Algorithms
         public int lowerBoundary = 0;
         public int Cmax = int.MaxValue;
         public List<RPQJob> bestSolution = new List<RPQJob>();
+        public int counter = 0;
 
         /// <summary>
         /// Funkcja ustawiająca pola klasy. Wykonać przed wykonaniem Solve() lub SolveUsingQueue()
@@ -56,6 +57,7 @@ namespace SPD1.Algorithms
             int cPrepTimeTemp = cJobInInput.PreparationTime; //zmienna tymczasowa
             cJobInInput.PreparationTime = Math.Max(c.PreparationTime, minPrepTime + workTimes);
             input[tempIndex] = cJobInInput;
+
             lowerBoundary = SchragePMTN.Solve(input.ToList(), out Stopwatch stopwatch2);
 
             int minPrepTimeWithC = (cJobInInput.PreparationTime < minPrepTime) ? cJobInInput.PreparationTime : minPrepTime;
@@ -69,7 +71,6 @@ namespace SPD1.Algorithms
             }
             cJobInInput.PreparationTime = cPrepTimeTemp;
             input[tempIndex] = cJobInInput;
-            //c.PreparationTime = cPrepTimeTemp;
 
             int cDelivTimeTemp = c.DeliveryTime;
             cJobInInput.DeliveryTime = Math.Max(c.DeliveryTime, minDelivTime + workTimes); //podmiana wartości w zadaniu c
@@ -101,9 +102,11 @@ namespace SPD1.Algorithms
                 bestSolution = newSolution;
                 Cmax = newCmax;
             }
+
             RPQJob b = getJobB(newSolution, newCmax);
             RPQJob a = getJobA(newSolution, newCmax, b);
             RPQJob c = getJobC(newSolution, a, b);
+            
             if (c.JobIndex == -1)
             {
                 stopwatch.Stop();
@@ -127,15 +130,12 @@ namespace SPD1.Algorithms
             int minPrepTimeWithC = (cJobInInput.PreparationTime < minPrepTime) ? cJobInInput.PreparationTime : minPrepTime;
             int minDelivTimeWithC = (cJobInInput.DeliveryTime < minDelivTime) ? cJobInInput.DeliveryTime : minDelivTime;
             int sumWithC = minPrepTimeWithC + minDelivTimeWithC + workTimes + cJobInInput.WorkTime; //h dla listy K z C
-
             lowerBoundary = Math.Max(sumTime, Math.Max(sumWithC, lowerBoundary));
             if (lowerBoundary < upperBoundary)
             {
                 SolveUsingQueue(input.ToList(), out Stopwatch stopwatch3);
             }
             cJobInInput.PreparationTime = cPrepTimeTemp;
-            input[tempIndex] = cJobInInput;
-            //c.PreparationTime = cPrepTimeTemp;
 
             int cDelivTimeTemp = c.DeliveryTime;
             cJobInInput.DeliveryTime = Math.Max(c.DeliveryTime, minDelivTime + workTimes); //podmiana wartości w zadaniu c
@@ -234,10 +234,11 @@ namespace SPD1.Algorithms
         public static RPQJob getJobC(List<RPQJob> list, RPQJob jobA, RPQJob jobB)
         {
             //zacznij od zadania bezpośrednio przed zadaniem B, zacznij od tyłu
-            int startIndex = list.IndexOf(jobB) - 1;
+            int startIndex = list.IndexOf(jobB);
             int endIndex = list.IndexOf(jobA);
             if (startIndex > endIndex)
             {
+                startIndex = startIndex - 1;
                 for (int i = startIndex; i >= endIndex; i--)
                 {
                     if (list[i].DeliveryTime < jobB.DeliveryTime)
@@ -248,6 +249,7 @@ namespace SPD1.Algorithms
             }
             else
             {
+                endIndex = endIndex-1;
                 for (int i = endIndex; i >= startIndex; i--)
                 {
                     if (list[i].DeliveryTime < jobB.DeliveryTime)

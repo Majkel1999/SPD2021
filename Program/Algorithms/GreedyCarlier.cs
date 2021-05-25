@@ -28,10 +28,11 @@ namespace SPD1.Algorithms
 
             stopwatch.Stop();
         }
+
         private void Solve(List<RPQJob> inputList)
         {
             List<RPQJob> newSolution = Schrage.SolveUsingQueue(inputList, out int newCmax);
-            if (newCmax < Cmax)
+            if (newCmax <= Cmax)
             {
                 bestSolution = newSolution;
                 Cmax = newCmax;

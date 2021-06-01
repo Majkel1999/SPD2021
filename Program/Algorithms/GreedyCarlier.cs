@@ -87,7 +87,7 @@ namespace SPD1.Algorithms
                 wentRigth = true;
                 Solve(inputList);
             }
-            else if (leftCmax == newCmax)
+            else if (leftCmax == Cmax)
             {
                 job.DeliveryTime = originalDeliveryTime;
                 job.PreparationTime = modifiedPreparationTime;
@@ -95,7 +95,7 @@ namespace SPD1.Algorithms
                 wentLeft = true;
                 Solve(inputList);
             }
-            else if (rigthCmax == newCmax)
+            else if (rigthCmax == Cmax)
             {
                 wentRigth = true;
                 Solve(inputList);
@@ -109,7 +109,12 @@ namespace SPD1.Algorithms
                 Solve(inputList);
             }
             if (!wentRigth && (rigthCmax == leftCmax || rigthCmax == newCmax) && m_isDeep)
+            {
+                job.DeliveryTime = modifiedDeliveryTime;
+                job.PreparationTime = originalPreparationTime;
+                inputList[jobIndexInList] = job;
                 Solve(inputList);
+            }
         }
     }
 }

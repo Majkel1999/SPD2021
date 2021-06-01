@@ -314,47 +314,61 @@ namespace SPD1
                 Thread thread1 = new Thread(() =>
                 {
                     TSAlgorithm ts = new TSAlgorithm();
-                    Cmax1 = ts.RunRPQ(out stopwatch1, 250, 250, 200, list.ToList());
+                    stopwatch1.Start();
+                    Cmax1 = ts.RunRPQ(out Stopwatch stopwatch, 250, 250, 200, list.ToList());
+                    stopwatch1.Stop();
                     Trace.WriteLine("Watek1");
                 });
                 Thread thread2 = new Thread(() =>
                 {
                     TSAlgorithm ts = new TSAlgorithm();
-                    Cmax2 = ts.RunRPQ(out stopwatch2, 500, 500, 200, list.ToList());
+                    stopwatch2.Start();
+                    Cmax2 = ts.RunRPQ(out Stopwatch stopwatch, 500, 500, 200, list.ToList());
+                    stopwatch2.Stop();
                     Trace.WriteLine("Watek2");
                 });
                 Thread thread3 = new Thread(() =>
                 {
                     TSAlgorithm ts = new TSAlgorithm();
-                    Cmax3 = ts.RunRPQ(out stopwatch3, 100, 100, 200, list.ToList());
+                    stopwatch3.Start();
+                    Cmax3 = ts.RunRPQ(out Stopwatch stopwatch, 100, 100, 200, list.ToList());
+                    stopwatch3.Stop();
                     Trace.WriteLine("Watek3");
                 });
                 Thread thread4 = new Thread(() =>
                 {
                     Carlier carlier = new Carlier();
-                    carlier.Solve(list.ToList(), out stopwatch4);
+                    stopwatch4.Start();
+                    carlier.Solve(list.ToList(), out Stopwatch stopwatch);
                     Cmax4 = carlier.Cmax;
+                    stopwatch4.Stop();
                     Trace.WriteLine("Watek4");
                 });
                 Thread thread5 = new Thread(() =>
                 {
                     Carlier carlier = new Carlier();
-                    carlier.SolveUsingQueue(list.ToList(), out stopwatch5);
+                    stopwatch5.Start();
+                    carlier.SolveUsingQueue(list.ToList(), out Stopwatch stopwatch);
                     Cmax5 = carlier.Cmax;
+                    stopwatch5.Stop();
                     Trace.WriteLine("Watek5");
                 });
                 Thread thread6 = new Thread(() =>
                 {
                     GreedyCarlier greedyCarlier = new GreedyCarlier();
-                    greedyCarlier.Solve(list.ToList(), out stopwatch6);
+                    stopwatch6.Start();
+                    greedyCarlier.Solve(list.ToList(), out Stopwatch stopwatch);
                     Cmax6 = greedyCarlier.Cmax;
+                    stopwatch6.Stop();
                     Trace.WriteLine("Watek6");
                 });
                 Thread thread7 = new Thread(() =>
                 {
                     GreedyCarlier greedyCarlier = new GreedyCarlier(true);
-                    greedyCarlier.Solve(list.ToList(), out stopwatch7);
+                    stopwatch7.Start();
+                    greedyCarlier.Solve(list.ToList(), out Stopwatch stopwatch);
                     Cmax7 = greedyCarlier.Cmax;
+                    stopwatch7.Stop();
                     Trace.WriteLine("Watek7");
                 });
 

@@ -202,5 +202,11 @@ namespace SPD1
             Test test = new Test();
             test.RunFullRPQTest();
         }
+
+        private void ORToolsButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<RPQJob> list = RPQLoadData.LoadDataFromFile();
+            ORWrapper.solve(list);
+        }
     }
 }

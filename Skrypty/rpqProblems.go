@@ -14,13 +14,13 @@ func check(e error) {
 
 func main() {
 	filenamePrefix := "problem"
-	for i := 0; i < 30; i++ {
+	for i := 35; i < 101; i = i + 5 {
 		str2 := filenamePrefix + strconv.Itoa(i) + ".txt"
 		f, err := os.Create(str2)
 		check(err)
 		defer f.Close()
 
-		numberOfJobs := i*10 + 10
+		numberOfJobs := i * 10
 		f.WriteString(strconv.Itoa(numberOfJobs) + "\n")
 		for j := 0; j < numberOfJobs; j++ {
 			r := rand.Intn(5000) + 100

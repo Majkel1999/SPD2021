@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPD1"
         mc:Ignorable="d"
-        Title="SPD" Height="700" Width="600" ResizeMode="NoResize">
+        Title="SPD" Height="800" Width="600" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -46,5 +47,6 @@
         <Button x:Name="GreedyCarlierButton" Content="Greedy Carlier" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="GreedyCarlierButton_Click"/>
         <Button x:Name="DeepGreedyCarlierButton" Content="Deep Greedy Carlier" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="DeepGreedyCarlierButton_Click"/>
         <Button x:Name="CarlierTestButton" Content="Carlier Time Test" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="CarlierTestButton_Click"/>
+        <Button x:Name="ORToolsButton" Content="OR Tools" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ORToolsButton_Click"/>
     </Grid>
 </Window>

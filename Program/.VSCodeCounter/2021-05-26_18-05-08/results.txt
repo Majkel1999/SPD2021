@@ -1,0 +1,109 @@
+Date : 2021-05-26 18:05:08
+Directory : c:\Users\mkale\source\repos\SPD2021\Program
+Total : 70 files,  7034 codes, 664 comments, 1249 blanks, all 8947 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| C#         |         48 |      5,729 |        664 |      1,235 |      7,628 |
+| XML        |          8 |      1,007 |          0 |         12 |      1,019 |
+| JSON       |         12 |        282 |          0 |          0 |        282 |
+| Properties |          2 |         16 |          0 |          2 |         18 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                  | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                     |         70 |      7,034 |        664 |      1,249 |      8,947 |
+| Algorithms                                                                                                            |          9 |      2,084 |        252 |        320 |      2,656 |
+| Misc                                                                                                                  |          8 |      1,002 |         24 |        136 |      1,162 |
+| bin                                                                                                                   |          6 |         82 |          0 |          0 |         82 |
+| bin\Debug                                                                                                             |          3 |         41 |          0 |          0 |         41 |
+| bin\Debug\net5.0-windows                                                                                              |          3 |         41 |          0 |          0 |         41 |
+| bin\Release                                                                                                           |          3 |         41 |          0 |          0 |         41 |
+| bin\Release\net5.0-windows                                                                                            |          3 |         41 |          0 |          0 |         41 |
+| obj                                                                                                                   |         35 |      2,481 |        343 |        738 |      3,562 |
+| obj\Debug                                                                                                             |         16 |      1,170 |        176 |        371 |      1,717 |
+| obj\Debug\net5.0-windows                                                                                              |         16 |      1,170 |        176 |        371 |      1,717 |
+| obj\Release                                                                                                           |         15 |      1,142 |        167 |        367 |      1,676 |
+| obj\Release\net5.0-windows                                                                                            |         15 |      1,142 |        167 |        367 |      1,676 |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                              | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\mkale\source\repos\SPD2021\Program\Algorithms\Carlier.cs                                                     | C#         |        225 |         38 |         21 |        284 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Algorithms\GreedyCarlier.cs                                               | C#         |        102 |          0 |         18 |        120 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Algorithms\JohnsonAlgorithm.cs                                            | C#         |        220 |         29 |         31 |        280 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Algorithms\NehAlgorithm.cs                                                | C#         |        570 |        117 |        135 |        822 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Algorithms\PBAlgorithm.cs                                                 | C#         |        157 |         18 |         24 |        199 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Algorithms\Permutation.cs                                                 | C#         |         63 |         12 |          8 |         83 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Algorithms\Schrage.cs                                                     | C#         |        105 |          0 |         14 |        119 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Algorithms\SchragePMTN.cs                                                 | C#         |        137 |          9 |         16 |        162 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Algorithms\TSAlgorithm.cs                                                 | C#         |        505 |         29 |         53 |        587 |
+| c:\Users\mkale\source\repos\SPD2021\Program\App.xaml                                                                  | XML        |          8 |          0 |          2 |         10 |
+| c:\Users\mkale\source\repos\SPD2021\Program\App.xaml.cs                                                               | C#         |         13 |          3 |          3 |         19 |
+| c:\Users\mkale\source\repos\SPD2021\Program\AssemblyInfo.cs                                                           | C#         |          5 |          4 |          2 |         11 |
+| c:\Users\mkale\source\repos\SPD2021\Program\MainWindow.xaml                                                           | XML        |         50 |          0 |          1 |         51 |
+| c:\Users\mkale\source\repos\SPD2021\Program\MainWindow.xaml.cs                                                        | C#         |        172 |         10 |         25 |        207 |
+| c:\Users\mkale\source\repos\SPD2021\Program\MakespansWindow.xaml                                                      | XML        |         37 |          0 |          2 |         39 |
+| c:\Users\mkale\source\repos\SPD2021\Program\MakespansWindow.xaml.cs                                                   | C#         |         21 |          3 |          3 |         27 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Misc\ConsoleAllocator.cs                                                  | C#         |         37 |          0 |         11 |         48 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Misc\Gantt.cs                                                             | C#         |         63 |          1 |          8 |         72 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Misc\JobObject.cs                                                         | C#         |         14 |          0 |          2 |         16 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Misc\LoadData.cs                                                          | C#         |         94 |          0 |         13 |        107 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Misc\PriorityQueue.cs                                                     | C#         |        149 |         22 |         21 |        192 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Misc\PriorityQueue2.cs                                                    | C#         |        147 |          1 |         19 |        167 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Misc\RPQ.cs                                                               | C#         |        103 |          0 |          6 |        109 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Misc\Test.cs                                                              | C#         |        395 |          0 |         56 |        451 |
+| c:\Users\mkale\source\repos\SPD2021\Program\RPQViewer.xaml                                                            | XML        |         30 |          0 |          1 |         31 |
+| c:\Users\mkale\source\repos\SPD2021\Program\RPQViewer.xaml.cs                                                         | C#         |         21 |          0 |          4 |         25 |
+| c:\Users\mkale\source\repos\SPD2021\Program\SPD1.csproj                                                               | XML        |        840 |          0 |          4 |        844 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Visualization.xaml                                                        | XML        |         17 |          0 |          2 |         19 |
+| c:\Users\mkale\source\repos\SPD2021\Program\Visualization.xaml.cs                                                     | C#         |        171 |         25 |          6 |        202 |
+| c:\Users\mkale\source\repos\SPD2021\Program\bin\Debug\net5.0-windows\SPD1.deps.json                                   | JSON       |         23 |          0 |          0 |         23 |
+| c:\Users\mkale\source\repos\SPD2021\Program\bin\Debug\net5.0-windows\SPD1.runtimeconfig.dev.json                      | JSON       |          9 |          0 |          0 |          9 |
+| c:\Users\mkale\source\repos\SPD2021\Program\bin\Debug\net5.0-windows\SPD1.runtimeconfig.json                          | JSON       |          9 |          0 |          0 |          9 |
+| c:\Users\mkale\source\repos\SPD2021\Program\bin\Release\net5.0-windows\SPD1.deps.json                                 | JSON       |         23 |          0 |          0 |         23 |
+| c:\Users\mkale\source\repos\SPD2021\Program\bin\Release\net5.0-windows\SPD1.runtimeconfig.dev.json                    | JSON       |          9 |          0 |          0 |          9 |
+| c:\Users\mkale\source\repos\SPD2021\Program\bin\Release\net5.0-windows\SPD1.runtimeconfig.json                        | JSON       |          9 |          0 |          0 |          9 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs   | C#         |          3 |          1 |          1 |          5 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\App.g.cs                                         | C#         |         43 |         18 |         11 |         72 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\App.g.i.cs                                       | C#         |         43 |         18 |         11 |         72 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\MainWindow.g.cs                                  | C#         |        317 |         15 |        122 |        454 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\MainWindow.g.i.cs                                | C#         |        317 |         15 |        122 |        454 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\MakespansWindow.g.cs                             | C#         |         61 |         15 |         15 |         91 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\MakespansWindow.g.i.cs                           | C#         |         61 |         15 |         15 |         91 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\RPQViewer.g.cs                                   | C#         |         50 |         15 |         12 |         77 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\RPQViewer.g.i.cs                                 | C#         |         50 |         15 |         12 |         77 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\SPD1.AssemblyInfo.cs                             | C#         |         11 |         10 |          5 |         26 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\SPD1.GeneratedMSBuildEditorConfig.editorconfig   | Properties |          8 |          0 |          1 |          9 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\SPD1.designer.deps.json                          | JSON       |         11 |          0 |          0 |         11 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\SPD1.designer.runtimeconfig.json                 | JSON       |         17 |          0 |          0 |         17 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\SPD1_Content.g.i.cs                              | C#         |         28 |          9 |          4 |         41 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\Visualization.g.cs                               | C#         |         75 |         15 |         20 |        110 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Debug\net5.0-windows\Visualization.g.i.cs                             | C#         |         75 |         15 |         20 |        110 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs | C#         |          3 |          1 |          1 |          5 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\App.g.cs                                       | C#         |         43 |         18 |         11 |         72 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\App.g.i.cs                                     | C#         |         43 |         18 |         11 |         72 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\MainWindow.g.cs                                | C#         |        317 |         15 |        122 |        454 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\MainWindow.g.i.cs                              | C#         |        317 |         15 |        122 |        454 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\MakespansWindow.g.cs                           | C#         |         61 |         15 |         15 |         91 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\MakespansWindow.g.i.cs                         | C#         |         61 |         15 |         15 |         91 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\RPQViewer.g.cs                                 | C#         |         50 |         15 |         12 |         77 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\RPQViewer.g.i.cs                               | C#         |         50 |         15 |         12 |         77 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\SPD1.AssemblyInfo.cs                           | C#         |         11 |         10 |          5 |         26 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\SPD1.GeneratedMSBuildEditorConfig.editorconfig | Properties |          8 |          0 |          1 |          9 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\SPD1.designer.deps.json                        | JSON       |         11 |          0 |          0 |         11 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\SPD1.designer.runtimeconfig.json               | JSON       |         17 |          0 |          0 |         17 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\Visualization.g.cs                             | C#         |         75 |         15 |         20 |        110 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\Release\net5.0-windows\Visualization.g.i.cs                           | C#         |         75 |         15 |         20 |        110 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\SPD1.csproj.nuget.dgspec.json                                         | JSON       |         69 |          0 |          0 |         69 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\SPD1.csproj.nuget.g.props                                             | XML        |         19 |          0 |          0 |         19 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\SPD1.csproj.nuget.g.targets                                           | XML        |          6 |          0 |          0 |          6 |
+| c:\Users\mkale\source\repos\SPD2021\Program\obj\project.assets.json                                                   | JSON       |         75 |          0 |          0 |         75 |
+| Total                                                                                                                 |            |      7,034 |        664 |      1,249 |      8,947 |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

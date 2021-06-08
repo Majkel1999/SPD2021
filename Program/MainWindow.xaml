@@ -48,5 +48,6 @@
         <Button x:Name="DeepGreedyCarlierButton" Content="Deep Greedy Carlier" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="DeepGreedyCarlierButton_Click"/>
         <Button x:Name="CarlierTestButton" Content="Carlier Time Test" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="CarlierTestButton_Click"/>
         <Button x:Name="ORToolsButton" Content="OR Tools" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ORToolsButton_Click"/>
+        <Button x:Name="WitiWithORToolsButton" Content="Witi OR Tools" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="WitiWithORToolsButton_Click"/>
     </Grid>
 </Window>

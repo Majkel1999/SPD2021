@@ -208,5 +208,12 @@ namespace SPD1
             List<RPQJob> list = RPQLoadData.LoadDataFromFile();
             ORWrapper.solve(list);
         }
+
+        private void WitiWithORToolsButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<WitiJob> list = LoadWitiData.LoadDataFromFile();
+            WitiProblem.SolveWithORTools(list);
+
+        }
     }
 }

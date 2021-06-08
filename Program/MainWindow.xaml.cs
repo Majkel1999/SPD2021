@@ -216,5 +216,12 @@ namespace SPD1
             WitiProblem.SolveWithORTools(list);
 
         }
+
+        private void ORToolsButtonClick(object sender, RoutedEventArgs e)
+        {
+            LoadData load = new LoadData();
+            load.ReadFromFile();
+            ORWrapper.Solve(load);
+        }
     }
 }

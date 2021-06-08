@@ -37,7 +37,7 @@ namespace SPD1.Algorithms
                 WitiJob job = witiData[i];
                 var startVariable = model.NewIntVar(0, sumOfAllWorkTimes, "Job " + i + " start");
                 var endVariable = model.NewIntVar(0, sumOfAllWorkTimes, "Job " + i + " end");
-                var lateVariable = model.NewIntVar(0, sumOfAllWorkTimes, "Job " + i + " late");
+                var lateVariable = model.NewIntVar(0, sumOfAllLateTimes, "Job " + i + " late");
 
                 modelIntervalVariables.Add(model.NewIntervalVar(startVariable, job.workTime, endVariable, "Interval on job " + i));
                 inputStartTimes.Add(startVariable);
@@ -47,7 +47,7 @@ namespace SPD1.Algorithms
                 model.Add(startVariable >= 0);
                 model.Add(endVariable > 0);
                 model.Add(lateVariable >= 0);
-                model.Add(lateVariable >= (endVariable - job.desiredEndTime));
+                model.Add(lateVariable >= (endVariable - job.desiredEndTime)*job.weight);
             }
             
             model.AddNoOverlap(modelIntervalVariables);
@@ -61,7 +61,11 @@ namespace SPD1.Algorithms
             List<Tuple<int, long>> jobOrder = new List<Tuple<int, long>>();
             for (int i = 0; i < witiData.Count; i++)
                 jobOrder.Add(Tuple.Create(i, solver.Value(inputStartTimes[i])));
-            jobOrder.OrderBy(tuple => tuple.Item2);
+            jobOrder.Sort((Tuple<int, long> x, Tuple<int, long> y) => {
+                if (x.Item2 > y.Item2) return 1;
+                if (x.Item2 < y.Item2) return -1;
+                return 0;
+            });
             foreach (var t in jobOrder)
                 Console.Write(t.Item1 + " ");
         }

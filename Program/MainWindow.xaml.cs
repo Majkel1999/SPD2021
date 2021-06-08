@@ -205,8 +205,9 @@ namespace SPD1
 
         private void ORToolsButton_Click(object sender, RoutedEventArgs e)
         {
-            List<RPQJob> list = RPQLoadData.LoadDataFromFile();
-            ORWrapper.solve(list);
+            //List<RPQJob> list = RPQLoadData.LoadDataFromFile();
+            List<JobshopJob> list = JobshopData.LoadDataFromFile();
+            ORWrapper.Solve(list);
         }
 
         private void WitiWithORToolsButton_Click(object sender, RoutedEventArgs e)

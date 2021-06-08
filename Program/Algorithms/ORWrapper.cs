@@ -8,21 +8,23 @@ using System.Linq;
 
 namespace SPD1.Algorithms
 {
+    public class TaskType
+    {
+        public IntVar startVariable;
+        public IntVar endVariable;
+        public IntervalVar intervalVariable;
+    }
     public class ORWrapper
     {
-        public static void solve(List<RPQJob> inputList)
+        public static void Solve(List<RPQJob> inputList)
         {
             CpModel model = new CpModel();
             int longestPreparationTime = 0;
             int longestDeliveryTime = 0;
             int workTimeSum = 0;
-            //ToDo przerobić na LINQ -> bedzie szybciej
-            foreach (RPQJob job in inputList)
-            {
-                workTimeSum += job.WorkTime;
-                longestPreparationTime = Math.Max(longestPreparationTime, job.PreparationTime);
-                longestDeliveryTime = Math.Max(longestDeliveryTime, job.DeliveryTime);
-            }
+            workTimeSum += inputList.Sum(x => x.WorkTime);
+            longestPreparationTime = inputList.Max(x => x.PreparationTime);
+            longestDeliveryTime = inputList.Max(x => x.DeliveryTime);
 
             List<IntVar> inputStartTimes = new List<IntVar>();
             List<IntVar> inputEndTimes = new List<IntVar>();
@@ -52,13 +54,77 @@ namespace SPD1.Algorithms
             List<Tuple<int, long>> jobOrder = new List<Tuple<int, long>>();
             for (int i = 0; i < inputList.Count; i++)
                 jobOrder.Add(Tuple.Create(i, solver.Value(inputStartTimes[i])));
-            jobOrder.Sort((Tuple<int,long> x, Tuple<int,long> y) => {
-                if(x.Item2 > y.Item2) return 1;
-                if(x.Item2 < y.Item2) return -1;
+            jobOrder.Sort((Tuple<int, long> x, Tuple<int, long> y) =>
+            {
+                if (x.Item2 > y.Item2) return 1;
+                if (x.Item2 < y.Item2) return -1;
                 return 0;
             });
-            foreach(var t in jobOrder)
-                Console.Write(t.Item1 +" ");
+            foreach (var t in jobOrder)
+                Console.Write(t.Item1 + " ");
+        }
+
+        public static void Solve(List<JobshopJob> inputList)
+        {
+            CpModel model = new CpModel();
+            int machinesCount = inputList.Max(x => x.OperationsList.Max(x => x.MachineNumber));
+            int durationsSum = inputList.Sum(x => x.OperationsList.Sum(x => x.Duration));
+            List<List<TaskType>> allTasks = new List<List<TaskType>>();
+            List<IntervalVar>[] machinesIntervals = new List<IntervalVar>[machinesCount];
+            for (int i = 0; i < machinesCount; i++)
+            {
+                machinesIntervals[i] = new List<IntervalVar>();
+            }
+
+            int x = 0;
+            foreach (JobshopJob job in inputList)
+            {
+                int y = 0;
+                allTasks.Add(new List<TaskType>());
+                foreach (JobshopOperation operation in job.OperationsList)
+                {
+                    var startVar = model.NewIntVar(0, durationsSum, "start_" + x + "_" + y);
+                    var endVar = model.NewIntVar(0, durationsSum, "end_" + x + "_" + y);
+                    var intervalVar = model.NewIntervalVar(startVar, operation.Duration, endVar, "interval_" + x + "_" + y);
+                    allTasks[x].Add(new TaskType
+                    {
+                        startVariable = startVar,
+                        endVariable = endVar,
+                        intervalVariable = intervalVar
+                    });
+                    machinesIntervals[operation.MachineNumber-1].Add(intervalVar);
+                    y++;
+                }
+                x++;
+            }
+
+            for (int i = 0; i < machinesCount; i++)
+            {
+                model.AddNoOverlap(machinesIntervals[i]);
+            }
+
+            x = 0;
+            foreach (var job in inputList)
+            {
+                for (int y = 0; y < job.OperationsList.Count - 1; y++)
+                {
+                    model.Add(allTasks[x][y + 1].startVariable >= allTasks[x][y].endVariable);
+                }
+                x++;
+            }
+
+            var cmax = model.NewIntVar(0, durationsSum, "Cmax");
+            model.AddMaxEquality(cmax, allTasks.Select(x => x.Last().endVariable));
+            model.Minimize(cmax);
+
+            var solver = new CpSolver();
+            var status = solver.Solve(model);
+
+            ConsoleAllocator.ShowConsoleWindow();
+            Console.WriteLine(status.ToString());
+            Console.WriteLine(solver.ObjectiveValue);
+            
+
         }
     }
 }

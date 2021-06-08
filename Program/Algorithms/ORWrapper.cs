@@ -52,7 +52,11 @@ namespace SPD1.Algorithms
             List<Tuple<int, long>> jobOrder = new List<Tuple<int, long>>();
             for (int i = 0; i < inputList.Count; i++)
                 jobOrder.Add(Tuple.Create(i, solver.Value(inputStartTimes[i])));
-            jobOrder.OrderBy(tuple => tuple.Item2);
+            jobOrder.Sort((Tuple<int,long> x, Tuple<int,long> y) => {
+                if(x.Item2 > y.Item2) return 1;
+                if(x.Item2 < y.Item2) return -1;
+                return 0;
+            });
             foreach(var t in jobOrder)
                 Console.Write(t.Item1 +" ");
         }

@@ -215,5 +215,11 @@ namespace SPD1
             WitiProblem.SolveWithORTools(list);
 
         }
+
+        private void FlowshopORToolsButton_Click(object sender, RoutedEventArgs e)
+		{
+            LoadData loadData = new LoadData();
+            loadData.ReadFromFile();
+		}
     }
 }

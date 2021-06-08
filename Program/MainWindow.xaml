@@ -24,6 +24,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="PermutationAlgButton_Click"/>
         <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="JohnsonAlgButton_Click"/>
@@ -49,5 +50,7 @@
         <Button x:Name="CarlierTestButton" Content="Carlier Time Test" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="CarlierTestButton_Click"/>
         <Button x:Name="ORToolsButton" Content="OR Tools" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ORToolsButton_Click"/>
         <Button x:Name="WitiWithORToolsButton" Content="Witi OR Tools" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="WitiWithORToolsButton_Click"/>
+        <Button x:Name="FlowshopORTools" Content="FlowshopORTools" Grid.Row="12" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="FlowshopORToolsButton_Click"/>
+
     </Grid>
 </Window>

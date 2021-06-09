@@ -14,7 +14,7 @@ namespace SPD1
     public class JobshopJob
     {
         public List<JobshopOperation> OperationsList = new List<JobshopOperation>();
-        public int JobsCount => OperationsList.Count;
+        public int OperationsCount => OperationsList.Count;
 
     }
     public static class JobshopData

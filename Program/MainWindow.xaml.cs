@@ -205,8 +205,7 @@ namespace SPD1
 
         private void ORToolsButton_Click(object sender, RoutedEventArgs e)
         {
-            //List<RPQJob> list = RPQLoadData.LoadDataFromFile();
-            List<JobshopJob> list = JobshopData.LoadDataFromFile();
+            List<RPQJob> list = RPQLoadData.LoadDataFromFile();
             ORWrapper.Solve(list);
         }
 
@@ -222,6 +221,13 @@ namespace SPD1
             LoadData load = new LoadData();
             load.ReadFromFile();
             ORWrapper.Solve(load);
+        }
+
+
+        private void ORToolsJobshop_Click(object sender, RoutedEventArgs e)
+        {
+            List<JobshopJob> list = JobshopData.LoadDataFromFile();
+            ORWrapper.Solve(list);
         }
     }
 }

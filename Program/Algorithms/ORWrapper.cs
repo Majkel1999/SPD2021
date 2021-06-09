@@ -137,7 +137,7 @@ namespace SPD1.Algorithms
             var status = solver.Solve(model);
 
             ConsoleAllocator.ShowConsoleWindow();
-            Console.WriteLine(status.ToString());
+            Console.WriteLine("\n" + status.ToString());
             Console.WriteLine("Cmax: " + solver.ObjectiveValue);
 
 
@@ -160,6 +160,7 @@ namespace SPD1.Algorithms
                     });
                 }
             }
+            /*
             for (int i = 0; i < machinesCount; i++)
             {
                 machinesSolve[i + 1].Sort((x1, x2) =>
@@ -175,6 +176,7 @@ namespace SPD1.Algorithms
                 }
                 Console.WriteLine();
             }
+            */
             stopwatch.Stop();
             Console.WriteLine("\nElapsed time: " + stopwatch.Elapsed.TotalMilliseconds + "ms");
         }
@@ -201,7 +203,6 @@ namespace SPD1.Algorithms
 
                 for (int i = 0; i < job.Count; i++)
                 {
-
                     var startVar = model.NewIntVar(0, durationsSum, "start_" + x + "_" + y);
                     var endVar = model.NewIntVar(0, durationsSum, "end_" + x + "_" + y);
                     var intervalVar = model.NewIntervalVar(startVar, job[i], endVar, "interval_" + x + "_" + y);
@@ -231,6 +232,24 @@ namespace SPD1.Algorithms
                 }
                 x++;
             }
+            for(int i=1;i<allTasks.Count;i++){
+                for(int j=0;j<allTasks[i].Count-1;j++){
+                    model.Add(allTasks[i][j].endVariable <= allTasks[i][j+1].startVariable);
+                }
+            }
+
+            for(int i=0;i<loadData.JobsQuantity-1;i++){
+                for(int j=i+1;j<loadData.JobsQuantity;j++){
+                    var boolean = model.NewBoolVar("bool_"+i+"_"+j);
+                    model.Add(allTasks[i][0].startVariable > allTasks[j][0].startVariable).OnlyEnforceIf(boolean);
+                    model.Add(allTasks[i][0].startVariable < allTasks[j][0].startVariable).OnlyEnforceIf(boolean.Not());
+                    for(int k=1;k<machinesCount;k++){
+                        model.Add(allTasks[i][k].startVariable > allTasks[j][k].startVariable).OnlyEnforceIf(boolean);
+                        model.Add(allTasks[i][k].startVariable < allTasks[j][k].startVariable).OnlyEnforceIf(boolean.Not());
+                    }
+                }
+            }
+
 
             var cmax = model.NewIntVar(0, durationsSum, "Cmax");
             model.AddMaxEquality(cmax, allTasks.Select(x => x.Last().endVariable));
@@ -244,25 +263,34 @@ namespace SPD1.Algorithms
             Console.WriteLine(status.ToString());
             Console.WriteLine("Cmax: " + solver.ObjectiveValue);
 
-            List<SolvedData> solution = new List<SolvedData>();
-            for (int i = 0; i < loadData.JobsQuantity; i++)
+            List<List<SolvedData>> solution = new List<List<SolvedData>>();
+            for (int i = 0; i < loadData.MachinesQuantity; i++)
             {
-                solution.Add(new SolvedData
+                solution.Add(new List<SolvedData>());
+                for (int j = 0; j < loadData.JobsQuantity; j++)
                 {
-                    duration = loadData.Jobs[i][0],
-                    jobNumber = i,
-                    startTime = solver.Value(allTasks[i][0].startVariable)
-                });
+                    solution[i].Add(new SolvedData
+                    {
+                        duration = loadData.Jobs[j][i],
+                        jobNumber = j,
+                        startTime = solver.Value(allTasks[j][i].startVariable)
+                    });
+                }
             }
-            solution.Sort((x1, x2) =>
-            {
-                if (x1.startTime > x2.startTime) return 1;
-                if (x1.startTime < x2.startTime) return -1;
-                return 0;
-            });
+
             foreach (var data in solution)
             {
-                Console.Write("[job:" + data.jobNumber + ", dur:" + data.startTime + "=>" + (data.duration + data.startTime) + "] ");
+                data.Sort((x1, x2) =>
+                    {
+                        if (x1.startTime > x2.startTime) return 1;
+                        if (x1.startTime < x2.startTime) return -1;
+                        return 0;
+                    });
+                foreach (var job in data)
+                {
+                    Console.Write("[job:" + job.jobNumber + ", dur:" + job.startTime + "=>" + (job.duration + job.startTime) + "] ");
+                }
+                Console.WriteLine("\n");
             }
 
             stopwatch.Stop();

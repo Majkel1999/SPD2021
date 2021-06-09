@@ -57,6 +57,7 @@ namespace SPD1.Algorithms
             model.AddNoOverlap(modelIntervalVariables);
             model.Minimize(cmax);
             var solver = new CpSolver();
+            solver.StringParameters = "max_time_in_seconds:120.0";
             var status = solver.Solve(model);
             ConsoleAllocator.ShowConsoleWindow();
             Console.WriteLine(status.ToString());
@@ -132,6 +133,7 @@ namespace SPD1.Algorithms
             model.Minimize(cmax);
 
             var solver = new CpSolver();
+            solver.StringParameters = "max_time_in_seconds:120.0";
             var status = solver.Solve(model);
 
             ConsoleAllocator.ShowConsoleWindow();
@@ -235,6 +237,7 @@ namespace SPD1.Algorithms
             model.Minimize(cmax);
 
             var solver = new CpSolver();
+            solver.StringParameters = "max_time_in_seconds:120.0";
             var status = solver.Solve(model);
 
             ConsoleAllocator.ShowConsoleWindow();

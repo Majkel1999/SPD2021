@@ -54,6 +54,7 @@ namespace SPD1.Algorithms
             model.Add(LinearExpr.Sum(lateTimes) <= wiTiOptimalizationObjective);
             model.Minimize(wiTiOptimalizationObjective);
             var solver = new CpSolver();
+            solver.StringParameters = "max_time_in_seconds:120.0";
             var status = solver.Solve(model);
             ConsoleAllocator.ShowConsoleWindow();
             Console.WriteLine(status.ToString());
@@ -71,7 +72,7 @@ namespace SPD1.Algorithms
                 Console.Write(t.Item1 + " ");
 
             stopwatch.Stop();
-            Console.WriteLine("\nElapsed time: "+stopwatch.Elapsed.TotalMilliseconds + "ms");
+            Console.WriteLine("\nElapsed time: " + stopwatch.Elapsed.TotalMilliseconds + "ms");
         }
     }
 }

@@ -26,6 +26,8 @@ namespace SPD1.Algorithms
     {
         public static void Solve(List<RPQJob> inputList)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             CpModel model = new CpModel();
             int longestPreparationTime = 0;
             int longestDeliveryTime = 0;
@@ -70,10 +72,14 @@ namespace SPD1.Algorithms
             });
             foreach (var t in jobOrder)
                 Console.Write(t.Item1 + " ");
+            stopwatch.Stop();
+            Console.WriteLine("\nElapsed time: " + stopwatch.Elapsed.TotalMilliseconds + "ms");
         }
 
         public static void Solve(List<JobshopJob> inputList)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             CpModel model = new CpModel();
             int machinesCount = inputList.Max(x => x.OperationsList.Max(x => x.MachineNumber));
             int durationsSum = inputList.Sum(x => x.OperationsList.Sum(x => x.Duration));
@@ -167,10 +173,14 @@ namespace SPD1.Algorithms
                 }
                 Console.WriteLine();
             }
+            stopwatch.Stop();
+            Console.WriteLine("\nElapsed time: " + stopwatch.Elapsed.TotalMilliseconds + "ms");
         }
 
         public static void Solve(LoadData loadData)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             CpModel model = new CpModel();
             int machinesCount = loadData.MachinesQuantity;
             int durationsSum = loadData.Jobs.Sum(x => x.Sum(x => x));
@@ -252,7 +262,8 @@ namespace SPD1.Algorithms
                 Console.Write("[job:" + data.jobNumber + ", dur:" + data.startTime + "=>" + (data.duration + data.startTime) + "] ");
             }
 
-
+            stopwatch.Stop();
+            Console.WriteLine("\nElapsed time: " + stopwatch.Elapsed.TotalMilliseconds + "ms");
 
         }
     }

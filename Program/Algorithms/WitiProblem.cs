@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Google.OrTools.Sat;
 using SPD1.Misc;
 
@@ -10,10 +11,12 @@ namespace SPD1.Algorithms
     {
         public static void SolveWithORTools(List<WitiJob> witiData)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             CpModel model = new CpModel();
 
             int sumOfAllWorkTimes = 0; //do czasów rozpoczęścia i zakończenia zadań, jako ograniczenie górne 
-            foreach(WitiJob job in witiData)
+            foreach (WitiJob job in witiData)
             {
                 sumOfAllWorkTimes += job.workTime;
             }
@@ -29,7 +32,7 @@ namespace SPD1.Algorithms
             List<IntVar> lateTimes = new List<IntVar>();
             List<IntVar> inputEndTimes = new List<IntVar>();
             List<IntervalVar> modelIntervalVariables = new List<IntervalVar>();
-            for (int i = 0;i<witiData.Count;i++)
+            for (int i = 0; i < witiData.Count; i++)
             {
                 WitiJob job = witiData[i];
                 var startVariable = model.NewIntVar(0, sumOfAllWorkTimes, "Job " + i + " start");
@@ -44,9 +47,9 @@ namespace SPD1.Algorithms
                 model.Add(startVariable >= 0);
                 model.Add(endVariable > 0);
                 model.Add(lateVariable >= 0);
-                model.Add(lateVariable >= (endVariable - job.desiredEndTime)*job.weight);
+                model.Add(lateVariable >= (endVariable - job.desiredEndTime) * job.weight);
             }
-            
+
             model.AddNoOverlap(modelIntervalVariables);
             model.Add(LinearExpr.Sum(lateTimes) <= wiTiOptimalizationObjective);
             model.Minimize(wiTiOptimalizationObjective);
@@ -58,13 +61,17 @@ namespace SPD1.Algorithms
             List<Tuple<int, long>> jobOrder = new List<Tuple<int, long>>();
             for (int i = 0; i < witiData.Count; i++)
                 jobOrder.Add(Tuple.Create(i, solver.Value(inputStartTimes[i])));
-            jobOrder.Sort((Tuple<int, long> x, Tuple<int, long> y) => {
+            jobOrder.Sort((Tuple<int, long> x, Tuple<int, long> y) =>
+            {
                 if (x.Item2 > y.Item2) return 1;
                 if (x.Item2 < y.Item2) return -1;
                 return 0;
             });
             foreach (var t in jobOrder)
                 Console.Write(t.Item1 + " ");
+
+            stopwatch.Stop();
+            Console.WriteLine("\nElapsed time: "+stopwatch.Elapsed.TotalMilliseconds + "ms");
         }
     }
 }

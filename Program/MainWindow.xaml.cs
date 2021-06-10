@@ -100,13 +100,9 @@ namespace SPD1
 
         private void TabuSearchButton_Click(object sender, RoutedEventArgs e)
         {
-            //TSAlgorithm tabuSearch = new TSAlgorithm();
-            //List<List<JobObject>> list = tabuSearch.Run(out Stopwatch stopwatch, 600, 150, 700);
-            LoadData data = new LoadData();
-            data.ReadFromFile();
-            TabuFlowshop tabuFlowshop = new TabuFlowshop();
-            List<List<JobObject>> list = tabuFlowshop.Run(out Stopwatch stopwatch, 200, 500,1000, data);
-            Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds, "tabuSearch");
+			TSAlgorithm tabuSearch = new TSAlgorithm();
+			List<List<JobObject>> list = tabuSearch.Run(out Stopwatch stopwatch, 500, 500, 500);
+			Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds, "tabuSearch");
             vis.Show();
         }
 
@@ -227,11 +223,26 @@ namespace SPD1
             ORWrapper.Solve(load);
         }
 
-
         private void ORToolsJobshop_Click(object sender, RoutedEventArgs e)
         {
             List<JobshopJob> list = JobshopData.LoadDataFromFile();
             ORWrapper.Solve(list);
         }
+
+        private void TabuFlowButton_Click(object sender, RoutedEventArgs e)
+		{
+            LoadData data = new LoadData();
+            data.ReadFromFile();
+            TabuFlowshop tabuFlowshop = new TabuFlowshop();
+            List<List<JobObject>> list = tabuFlowshop.Run(out Stopwatch stopwatch, 500, 500, 500, data);
+            Visualization vis = new(list, stopwatch.Elapsed.TotalMilliseconds, "tabuSearch");
+            vis.Show();
+        }
+
+        private void TabuFlowTestButton_Click(object sender, RoutedEventArgs e)
+		{
+            Test test = new Test();
+            test.RunTabuFlowTest();
+		}
     }
 }

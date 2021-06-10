@@ -446,5 +446,85 @@ namespace SPD1
             }
             file.Close();
         }
+
+        public void RunTabuFlowTest()
+		{
+            instance = Directory.GetFiles(multiTestFilesPath);
+            StreamWriter file = new StreamWriter("TabuFlowshopStany.txt");
+            file.WriteLine("Instancja;Maszyny;Zadania;TabuZwykle200;;TabuZwykle500;;TabuZwykle1000;;TabuStany200;;TabuStany500;;TabuStany1000;;Johnson;;Neh;;");
+            file.WriteLine("Instancja;Maszyny;Zadania;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas;CMax;Czas");
+            Stopwatch stopwatch;
+			for (int i = 0; i < instance.Count(); i++)
+			{
+				Trace.WriteLine("Jestesmy na: " + instance[i]);
+
+                LoadData loadData = new LoadData();
+                loadData.ReadFromFileToTest(instance[i]);
+
+                file.Write(instance[i].Split('\\').Last() + ";" + loadData.MachinesQuantity + ";" + loadData.JobsQuantity + ";");
+
+				TSAlgorithm ts = new TSAlgorithm();
+				TabuFlowshop tabuFlowshop = new TabuFlowshop();
+				JohnsonAlgorithm johnsonAlgorithm = new JohnsonAlgorithm();
+                NehAlgorithm nehAlgorithm = new NehAlgorithm();
+
+				int Cmax = Gantt.GetCmax(ts.Run(out stopwatch, 200, 200, 200, loadData));
+				file.Write(Cmax + ";");
+				file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+				stopwatch.Reset();
+
+				loadData.ReadFromFileToTest(instance[i]);
+
+				Cmax = Gantt.GetCmax(ts.Run(out stopwatch, 500, 500, 500, loadData));
+				file.Write(Cmax + ";");
+				file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+				stopwatch.Reset();
+
+                loadData.ReadFromFileToTest(instance[i]);
+
+                Cmax = Gantt.GetCmax(ts.Run(out stopwatch, 1000, 1000, 1000, loadData));
+                file.Write(Cmax + ";");
+                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+                stopwatch.Reset();
+
+                loadData.ReadFromFileToTest(instance[i]);
+
+				Cmax = Gantt.GetCmax(tabuFlowshop.Run(out stopwatch, 200, 200, 200, loadData));
+				file.Write(Cmax + ";");
+				file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+				stopwatch.Reset();
+
+				loadData.ReadFromFileToTest(instance[i]);
+
+				Cmax = Gantt.GetCmax(tabuFlowshop.Run(out stopwatch, 500, 500, 500, loadData));
+				file.Write(Cmax + ";");
+				file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+				stopwatch.Reset();
+
+                loadData.ReadFromFileToTest(instance[i]);
+
+                Cmax = Gantt.GetCmax(tabuFlowshop.Run(out stopwatch, 1000, 1000, 1000, loadData));
+                file.Write(Cmax + ";");
+                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+                stopwatch.Reset();
+
+                loadData.ReadFromFileToTest(instance[i]);
+
+				Cmax = Gantt.GetCmax(johnsonAlgorithm.RunToTest(out stopwatch, loadData));
+				file.Write(Cmax + ";");
+				file.Write(stopwatch.Elapsed.TotalMilliseconds + ";");
+				stopwatch.Reset();
+
+                loadData.ReadFromFileToTest(instance[i]);
+
+                Cmax = Gantt.GetCmax(nehAlgorithm.Run(out stopwatch, loadData));
+                file.Write(Cmax + ";");
+                file.Write(stopwatch.Elapsed.TotalMilliseconds + ";\n");
+                stopwatch.Reset();
+
+
+            }
+            file.Close();
+        }
     }
 }

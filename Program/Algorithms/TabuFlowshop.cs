@@ -38,31 +38,30 @@ namespace SPD1.Algorithms
 			return nehResult;
 		}
 
-		public List<List<Step>> GenerateNeighbourhood(List<int> permutation, List<Step> modifers, int neighbourhoodSize)
+		public List<List<Step>> GenerateNeighbourhood(List<int> startPermutation, List<Step> startPermutationModifers, int neighbourhoodSize)
 		{
 			List<List<Step>> neighbourhood = new List<List<Step>>();
-			List<Step> alreadyDoneSteps = modifers.ToList();
+			List<Step> alreadyDoneSteps = startPermutationModifers.ToList();
 
 			int maxPermutations;
 
-			if (permutation.Count > 8)
+			if (startPermutation.Count > 8) //Większe od 8 ponieważ 8! daje liczbę dużo większą niż nasze docelowe rozmiary sąsiedztwa
 				maxPermutations = neighbourhoodSize;
 			else
-				maxPermutations = Enumerable.Range(1, permutation.Count - 1).Aggregate(1, (p, item) => p * item);
+				maxPermutations = Enumerable.Range(1, startPermutation.Count - 1).Aggregate(1, (p, item) => p * item); //Ekwiwalent silni
+
 			int counter = 0;
 
 			while (neighbourhood.Count < neighbourhoodSize && neighbourhood.Count < maxPermutations)
 			{
-				for (int i = 0; i < permutation.Count; i++)
+				for (int i = 0; i < startPermutation.Count; i++)
 				{
-					for (int j = i + 1; j < permutation.Count; j++)
+					for (int j = i + 1; j < startPermutation.Count; j++)
 					{
 						if (neighbourhood.Count < neighbourhoodSize && neighbourhood.Count < maxPermutations)
 						{
 							List<Step> steps = new List<Step>();
-
-							foreach (var step in alreadyDoneSteps)
-								steps.Add(step);
+							steps.AddRange(alreadyDoneSteps);
 
 							steps.Add(new Step(i, j));
 
@@ -74,12 +73,11 @@ namespace SPD1.Algorithms
 							return neighbourhood;
 					}
 				}
-				var rand = new Random();
+				var random = new Random();
 				alreadyDoneSteps.Clear();
-				alreadyDoneSteps.AddRange(neighbourhood[rand.Next(counter)]);
+				alreadyDoneSteps.AddRange(neighbourhood[random.Next(counter)]); //Wybieramy losowo, żeby nie powtarzać tego samego ruchu
 			}
-
-			return null;
+			return neighbourhood;
 		}
 
 		public List<Step> CalculateBestSolution(List<int> startPermutation, List<List<Step>> neighbourhood, List<List<Step>> tabuList, LoadData data, out int Cmax)
@@ -89,10 +87,9 @@ namespace SPD1.Algorithms
 
 			bool isInTabuList;
 
-
 			foreach (var permutation in neighbourhood)
 			{
-				List<int> temporaryPermutation = startPermutation;
+				List<int> temporaryPermutation = startPermutation.ToList();
 				isInTabuList = false;
 
 				foreach (var y in tabuList)
@@ -103,50 +100,49 @@ namespace SPD1.Algorithms
 						break;
 					}
 				}
+
 				if (!isInTabuList)
 				{
-
 					foreach (Step step in permutation)
-					{
 						temporaryPermutation = SwapElements(temporaryPermutation, step.First, step.Second);
-					}
 
-					int temp = Gantt.GetCmax(temporaryPermutation, data);
-					if (cmaxOfBestSolution > temp)
+					int tempCmax = Gantt.GetCmax(temporaryPermutation, data);
+
+					if (tempCmax < cmaxOfBestSolution)
 					{
-						cmaxOfBestSolution = temp;
+						cmaxOfBestSolution = tempCmax;
 						bestSolution = permutation;
 					}
 				}
 			}
+
 			Cmax = cmaxOfBestSolution;
 			return bestSolution;
 		}
 
-		public List<List<JobObject>> Run(out Stopwatch stopwatch, int sizeOfTabuList, int countOfIterations, int countOfPermutations, LoadData data = null)
+		public List<List<JobObject>> Run(out Stopwatch stopwatch, int sizeOfTabuList, int countOfIterations, int neighbourhoodSize, LoadData flowshopData = null)
 		{
-			if (data == null)
+			if (flowshopData == null)
 				throw new Exception("Input data is null");
 
 			stopwatch = new Stopwatch();
-			List<List<Step>> tabuList = new List<List<Step>>();
-			List<Step> bestSolutionOfAlgorithm = new List<Step>();
-			int bestSolutionCmax;
-
-
 			stopwatch.Start();
 
-			List<int> startPermutation = GenerateStartPermutation(data);
-			bestSolutionCmax = Gantt.GetCmax(startPermutation, data);
+			List<int> startPermutation = GenerateStartPermutation(flowshopData);
+			int bestSolutionCmax = Gantt.GetCmax(startPermutation, flowshopData);
+
+			List<List<Step>> tabuList = new List<List<Step>>();
+			List<Step> bestSolutionOfAlgorithm = new List<Step>();
 
 			tabuList.Add(bestSolutionOfAlgorithm);
 
 			int counter = countOfIterations;
+
 			while (counter > 0)
 			{
-				List<List<Step>> neighbourhood = GenerateNeighbourhood(startPermutation, bestSolutionOfAlgorithm, countOfPermutations);
+				List<List<Step>> neighbourhood = GenerateNeighbourhood(startPermutation, bestSolutionOfAlgorithm, neighbourhoodSize);
 
-				List<Step> solution = CalculateBestSolution(startPermutation, neighbourhood, tabuList, data, out int cmax);
+				List<Step> solution = CalculateBestSolution(startPermutation, neighbourhood, tabuList, flowshopData, out int Cmax);
 
 				if (tabuList.Count == sizeOfTabuList)
 				{
@@ -154,26 +150,24 @@ namespace SPD1.Algorithms
 					tabuList.Add(solution);
 				}
 				else
-				{
 					tabuList.Add(solution);
-				}
 
-				if (bestSolutionCmax > cmax)
+				if (Cmax < bestSolutionCmax)
 				{
 					bestSolutionOfAlgorithm = solution;
-					bestSolutionCmax = cmax;
+					bestSolutionCmax = Cmax;
 				}
 				--counter;
 			}
 
-			stopwatch.Stop();
-
-			List<int> finalList = startPermutation;
+			List<int> outputList = startPermutation;
 
 			foreach (var step in bestSolutionOfAlgorithm)
-				finalList = SwapElements(finalList, step.First, step.Second);
+				outputList = SwapElements(outputList, step.First, step.Second);
 
-			return Gantt.MakeGanttChart(finalList, data);
+			stopwatch.Stop();
+
+			return Gantt.MakeGanttChart(outputList, flowshopData);
 		}
 	}
 }

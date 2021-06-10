@@ -25,6 +25,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button x:Name="PermutationAlgButton" Content="Przegląd zupełny" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="PermutationAlgButton_Click"/>
         <Button x:Name="JohnsonAlgButton" Content="Algorytm Johnson'a"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="JohnsonAlgButton_Click"/>
@@ -52,5 +53,8 @@
         <Button x:Name="WitiWithORToolsButton" Content="OR Tools Witi " Grid.Row="11" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="WitiWithORToolsButton_Click"/>
         <Button x:Name="ORToolsFlowshop" Content="OR Tools Flowshop" Grid.Row="12" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ORToolsButtonClick"/>
         <Button x:Name="ORToolsJobshop" Content="OR Tools Jobshop" Grid.Row="12" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="ORToolsJobshop_Click"/>
+        <Button x:Name="TabuFlowshopStany" Content="Tabu Flowshop Stany" Grid.Row="13" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuFlowButton_Click"/>
+        <Button x:Name="TabuFlowTest" Content="Tabu Flowshop Stany Test" Grid.Row="13" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="36" Click="TabuFlowTestButton_Click"/>
+
     </Grid>
 </Window>

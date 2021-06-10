@@ -63,6 +63,11 @@ namespace SPD1
             return listOfJobs;
         }
 
+        public static int GetCmax(List<List<JobObject>> jobObjects)
+		{
+            return jobObjects.Last().Last().StopTime;
+		}
+
         public static int GetCmax(List<int> permutation, LoadData data)
         {
             return MakeGanttChart(permutation, data).Last().Last().StopTime;
